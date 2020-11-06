@@ -10,3 +10,11 @@ function alert($data,$tipe){
         </div>';
     }
 }
+
+function agama($id = null){
+    echo '<option value="islam"'; if(isset($id) && $id =='islam'){ echo 'selected';} echo '>Islam</option>';
+    echo '<option value="yahudi"'; if(isset($id) && $id =='yahudi'){ echo 'selected';} echo '>Yahudi</option>';
+    echo '<option value="protestan"'; if(isset($id) && $id =='protestan'){ echo 'selected';} echo '>Protestan</option>';
+    echo '<option value="konghucu"'; if(isset($id) && $id == 'konghucu'){ echo 'selected';} echo '>Konghucu</option>';
+    echo '<option value="kristen"'; if(isset($id) && $id =='kristen'){ echo 'selected';} echo '>Kristen</option>';
+}
