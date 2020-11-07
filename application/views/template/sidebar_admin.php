@@ -42,7 +42,7 @@
           </div>
         </div>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
           aria-controls="collapseTable">
           <i class="fas fa-fw fa-table"></i>
@@ -55,12 +55,19 @@
             <a class="collapse-item" href="datatables.html">DataTables</a>
           </div>
         </div>
-      </li>
+      </li> -->
       <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('admin/mapel'); ?>">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
+          aria-controls="collapseTable">
           <i class="fas fa-fw fa-book"></i>
           <span>Mapel</span>
         </a>
+        <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?= site_url('admin/mapel');?>">Mapel</a>
+            <a class="collapse-item" href="<?= site_url('admin/mapel_ajar');?>">Mapel - Ajar</a>
+          </div>
+        </div>
       </li>
       <hr class="sidebar-divider">
       <div class="sidebar-heading">

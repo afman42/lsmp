@@ -7,6 +7,9 @@ class Admin extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Admin_model');
 		$this->load->model('Mapel_model');
+		$this->load->model('Kelas_model');
+		$this->load->model('Mapel_kelas_model');
+		$this->load->model('Kelas_siswa_model');
 	}
 
     public function index()
@@ -353,6 +356,216 @@ class Admin extends CI_Controller {
 		}else{
 			$this->session->set_flashdata('success','Gagal Hapus Mapel');
 			redirect(site_url('admin/mapel'));
+		}
+	}
+
+	//Mapel Ajar
+	public function mapel_ajar()
+	{
+		$data['header'] = 'E-elearning - Mapel Ajar';
+		$data['mapel_ajar'] = $this->Mapel_kelas_model->mapel_ajar()->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('admin/mapel_ajar',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function tambah_mapel_ajar()
+	{
+		$data['header'] = 'E-elearning - Tambah Mapel Ajar';
+		$data['mapel'] = $this->Mapel_model->mapel()->result();
+		$data['kelas'] = $this->Kelas_model->kelas()->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('admin/tambah_mapel_ajar',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function edit_mapel_ajar($id)
+	{
+		$data['header'] = 'E-elearning - Edit Mapel Ajar';
+		$data['mapel_ajar'] = $this->db->get_where('mapel_kelas',['id' => $id])->row();
+		$data['mapel'] = $this->Mapel_model->mapel()->result();
+		$data['kelas'] = $this->Kelas_model->kelas()->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('admin/edit_mapel_ajar',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function insert_mapel_ajar()
+	{
+		$post = $this->input->post();
+		
+		$data = [
+				'kelas_id' => $post['kelas_id'],	
+				'mapel_id' => $post['mapel_id'],	
+			];
+		$this->Mapel_kelas_model->tambah_mapel_ajar($data);
+		
+		$this->session->set_flashdata('success','Berhasil Tambah Mapel Ajar');
+		redirect(site_url('admin/mapel_ajar'));
+	}
+
+	public function update_mapel_ajar($id)
+	{
+		$post = $this->input->post();
+		$data = [
+			'kelas_id' => $post['kelas_id'],	
+			'mapel_id' => $post['mapel_id'],	
+		];
+		
+		$this->Mapel_kelas_model->update_mapel_ajar($id,$data);
+		
+		$this->session->set_flashdata('success','Berhasil Update Mapel Ajar');
+		redirect(site_url('admin/mapel_ajar'));
+	}
+
+	public function hapus_mapel_ajar($id)
+	{
+		$model = $this->db->get_where('mapel_kelas',['id' => $id])->row();
+		if ($model != null) {
+			$this->Mapel_kelas_model->hapus_mapel_ajar($model->id);
+			$this->session->set_flashdata('success','Berhasil Hapus Mapel Ajar');
+			redirect(site_url('admin/mapel_ajar'));
+		}else{
+			$this->session->set_flashdata('success','Gagal Hapus Mapel Ajar');
+			redirect(site_url('admin/mapel_ajar'));
+		}
+	}
+
+	//Kelas
+	public function kelas()
+	{
+		$data['header'] = 'E-elearning - Kelas';
+		$data['kelas'] = $this->Kelas_model->kelas()->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('admin/kelas',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function tambah_kelas()
+	{
+		$data['header'] = 'E-elearning - Tambah Kelas';
+		$this->load->view('template/header',$data);
+		$this->load->view('admin/tambah_kelas');
+		$this->load->view('template/footer');
+	}
+
+	public function edit_kelas($id)
+	{
+		$data['header'] = 'E-elearning - Edit Kelas';
+		$data['kelas'] = $this->db->get_where('kelas',['id' => $id])->row();
+		$this->load->view('template/header',$data);
+		$this->load->view('admin/edit_kelas',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function insert_kelas()
+	{
+		$post = $this->input->post();
+		
+		$data = [
+				'nama' => $post['nama'],	
+			];
+		$this->Kelas_model->tambah_kelas($data);
+		
+		$this->session->set_flashdata('success','Berhasil Tambah Kelas');
+		redirect(site_url('admin/kelas'));
+	}
+
+	public function update_kelas($id)
+	{
+		$post = $this->input->post();
+		$data = [
+			'nama' => $post['nama'],			
+		];
+		
+		$this->Kelas_model->update_kelas($id,$data);
+		
+		$this->session->set_flashdata('success','Berhasil Update Kelas');
+		redirect(site_url('admin/kelas'));
+	}
+
+	public function hapus_kelas($id)
+	{
+		$model = $this->db->get_where('kelas',['id' => $id])->row();
+		if ($model != null) {
+			$this->Kelas_model->hapus_kelas($model->id);
+			$this->session->set_flashdata('success','Berhasil Hapus Kelas');
+			redirect(site_url('admin/kelas'));
+		}else{
+			$this->session->set_flashdata('success','Gagal Hapus Kelas');
+			redirect(site_url('admin/kelas'));
+		}
+	}
+
+	//Kelas - Siswa
+	public function kelas_siswa()
+	{
+		$data['header'] = 'E-elearning - Kelas Siswa';
+		$data['kelas_siswa'] = $this->Kelas_siswa_model->kelas_siswa()->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('admin/kelas_siswa',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function tambah_kelas_siswa()
+	{
+		$data['header'] = 'E-elearning - Tambah Kelas Siswa';
+		$data['kelas'] = $this->Kelas_model->kelas()->result();
+		$data['siswa'] = $this->Admin_model->siswa()->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('admin/tambah_kelas_siswa',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function edit_kelas_siswa($id)
+	{
+		$data['header'] = 'E-elearning - Edit Kelas Siswa';
+		$data['kelas_siswa'] = $this->db->get_where('kelas_siswa',['id' => $id])->row();
+		$data['kelas'] = $this->Kelas_model->kelas()->result();
+		$data['siswa'] = $this->Admin_model->siswa()->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('admin/edit_kelas_siswa',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function insert_kelas_siswa()
+	{
+		$post = $this->input->post();
+		
+		$data = [
+				'siswa_id' => $post['siswa_id'],	
+				'kelas_id' => $post['kelas_id'],	
+			];
+		$this->Kelas_siswa_model->tambah_kelas_siswa($data);
+		
+		$this->session->set_flashdata('success','Berhasil Tambah Kelas Siswa');
+		redirect(site_url('admin/kelas_siswa'));
+	}
+
+	public function update_kelas_siswa($id)
+	{
+		$post = $this->input->post();
+		$data = [
+			'siswa_id' => $post['siswa_id'],	
+			'kelas_id' => $post['kelas_id'],
+		];
+		
+		$this->Kelas_siswa_model->update_kelas_siswa($id,$data);
+		
+		$this->session->set_flashdata('success','Berhasil Update Kelas Siswa');
+		redirect(site_url('admin/kelas_siswa'));
+	}
+
+	public function hapus_kelas_siswa($id)
+	{
+		$model = $this->db->get_where('kelas_siswa',['id' => $id])->row();
+		if ($model != null) {
+			$this->Kelas_siswa_model->hapus_kelas_siswa($model->id);
+			$this->session->set_flashdata('success','Berhasil Hapus Kelas Siswa');
+			redirect(site_url('admin/kelas_siswa'));
+		}else{
+			$this->session->set_flashdata('success','Gagal Hapus Kelas Siswa');
+			redirect(site_url('admin/kelas_siswa'));
 		}
 	}
 }
