@@ -8,7 +8,7 @@
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item active">
-        <a class="nav-link" href="<?= site_url('admin/index'); ?>">
+        <a class="nav-link" href="<?= site_url('pengajar/index'); ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Beranda</span></a>
       </li>
@@ -17,10 +17,16 @@
         Featuress
       </div> -->
       <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('pengajar/ujian'); ?>">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Ujian</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
           aria-expanded="true" aria-controls="collapseBootstrap">
           <i class="far fa-fw fa-user"></i>
-          <span>User</span>
+          <span>Ujian</span>
         </a>
         <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -69,7 +75,7 @@
           </div>
         </div>
       </li>
-      <!-- <hr class="sidebar-divider">
+      <hr class="sidebar-divider">
       <div class="sidebar-heading">
         Examples
       </div>
@@ -88,17 +94,11 @@
             <a class="collapse-item" href="blank.html">Blank Page</a>
           </div>
         </div>
-      </li> -->
-      <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('admin/ubah_profil'); ?>">
-          <i class="fas fa-fw fa-user-circle"></i>
-          <span>Profil</span>
-        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('utama/logout'); ?>">
-          <i class="fas fa-fw fa-sign-out-alt"></i>
-          <span>Keluar</span>
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span>
         </a>
       </li>
     </ul>

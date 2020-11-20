@@ -5,7 +5,12 @@ class Admin_model extends CI_Model {
 
     public function pengajar()
     {
-        return $this->db->get('pengajar');
+        return $this->db->query("SELECT * FROM pengajar");
+    }
+
+    public function pengajar_not_in()
+    {
+        return $this->db->query("SELECT * FROM pengajar WHERE id NOT IN (1)");
     }
 
     public function tambah_pengajar($data)

@@ -36,13 +36,32 @@ class Utama extends CI_Controller {
 		$password_encrypt = md5($password);
         
         $query = $this->model->login($email,$password_encrypt);
+
         if( $query->num_rows() > 0 )
         {
-		    $row = $query->row(1);
-		    $data = array(
-		      'email'           => $row->email,
-		      'level'        	=> $row->level,
-		    );
+            $row = $query->row(1);
+            if($row->level == 1){
+                $data = array(
+                    'email'   => $row->email,
+                    'level'   => $row->level,
+                  );
+            }
+            else if($row->level == 2){
+                $pengajar = $this->model->cek_pengajar($row->is_pengajar)->row();
+                $data = array(
+                    'email'  => $row->email,
+                    'level'  => $row->level,
+                    'mapel_id' => $pengajar->mapel_id,
+                    'id_pengajar' => $pengajar->id,
+                );
+            }
+            else{
+                $data = array(
+                    'email'  => $row->email,
+                    'level'  => $row->level,
+                );
+            }
+            
             $this->session->set_userdata($data);
             return TRUE;
         }
@@ -64,5 +83,11 @@ class Utama extends CI_Controller {
         else{
             redirect(site_url('murid'));
         }
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect(site_url('utama'));
     }
 }

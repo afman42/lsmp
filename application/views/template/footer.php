@@ -23,6 +23,7 @@
 <script src="<?= base_url();?>/RuangAdmin/js/ruang-admin.min.js"></script>
 <script src="<?= base_url();?>/RuangAdmin/vendor/chart.js/Chart.min.js"></script>
 <script src="<?= base_url();?>/RuangAdmin/js/demo/chart-area-demo.js"></script>
+<script src="<?= base_url();?>/RuangAdmin/vendor/jquery-timepicker/jquery.timepicker.min.js"></script>
 <!-- Page level plugins -->
 <script src="<?= base_url();?>/RuangAdmin/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url();?>/RuangAdmin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
@@ -31,6 +32,10 @@
   <script>
     $(document).ready(function () {
       $('#dataTable').DataTable(); // ID From dataTable 
+      $('.timepicker').timepicker({
+          'timeFormat': 'H:mm',
+          'step': 15 
+      });
     });
   </script>
 </body>

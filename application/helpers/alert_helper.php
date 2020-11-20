@@ -18,3 +18,7 @@ function agama($id = null){
     echo '<option value="konghucu"'; if(isset($id) && $id == 'konghucu'){ echo 'selected';} echo '>Konghucu</option>';
     echo '<option value="kristen"'; if(isset($id) && $id =='kristen'){ echo 'selected';} echo '>Kristen</option>';
 }
+
+function ubah_date_time($timestamp){
+    return date('Y-m-d H:i:s', strtotime($timestamp));
+}

@@ -7,4 +7,9 @@ class Login_model extends CI_Model {
     {
         return $this->db->get_where('user',['email' => $email, 'password' => $password]);
     }
+
+    public function cek_pengajar($id)
+    {
+        return $this->db->get_where('pengajar',['id' => $id]);
+    }
 }
