@@ -22,3 +22,25 @@ function agama($id = null){
 function ubah_date_time($timestamp){
     return date('Y-m-d H:i:s', strtotime($timestamp));
 }
+
+function pilihan_jawaban($selected = NULL){
+    echo "<option value=''> -- Pilihan Jawaban -- </option>";
+    echo "<option value='a' "; if (isset($selected) && $selected == 'a') { echo 'selected'; }; echo ">A</option>";
+    echo "<option value='b' "; if (isset($selected) && $selected == 'b') { echo 'selected'; }; echo ">B</option>";    
+    echo "<option value='c' "; if (isset($selected) && $selected == 'c') { echo 'selected'; }; echo ">C</option>";    
+    echo "<option value='d' "; if (isset($selected) && $selected == 'd') { echo 'selected'; }; echo ">D</option>";
+}
+
+function first_kata_tinymce($str, $value){
+    if ($value == 'a.' || $value == 'b.' || $value == 'c.' || $value == 'd.') {
+        return ltrim($str, $value);
+    }
+}
+
+function active_link($url){
+    $ci =& get_instance();
+    $uri = $ci->uri->segment(2);
+    if ($uri == $url) {
+        echo 'active';
+    }
+}

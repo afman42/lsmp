@@ -34,11 +34,6 @@ class Ujian_model extends CI_Model {
         return $this->db->insert('ujian',$data);
     }
 
-    public function edit_kelas($id)
-    {
-        return $this->db->get_where('kelas',['id' => $id]);
-    }
-
     public function hapus_ujian($id)
     {
         $this->db->where('id', $id);

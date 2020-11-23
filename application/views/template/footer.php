@@ -24,6 +24,7 @@
 <script src="<?= base_url();?>/RuangAdmin/vendor/chart.js/Chart.min.js"></script>
 <script src="<?= base_url();?>/RuangAdmin/js/demo/chart-area-demo.js"></script>
 <script src="<?= base_url();?>/RuangAdmin/vendor/jquery-timepicker/jquery.timepicker.min.js"></script>
+<script src="<?= base_url();?>/RuangAdmin/vendor/tinymce/tinymce.min.js"></script>
 <!-- Page level plugins -->
 <script src="<?= base_url();?>/RuangAdmin/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url();?>/RuangAdmin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
@@ -35,6 +36,35 @@
       $('.timepicker').timepicker({
           'timeFormat': 'H:mm',
           'step': 15 
+      });
+      tinymce.init({
+        selector: '#post-content',
+        plugins: 'table advlist lists image media anchor hr link autoresize',
+        toolbar: 'formatselect bold forecolor backcolor | bullist numlist | link image media anchor | table | code',
+      });
+
+      tinymce.init({
+        selector: '#post-content1',
+        plugins: 'table advlist lists image media anchor hr link autoresize',
+        toolbar: 'formatselect bold forecolor backcolor | bullist numlist | link image media anchor | table | code',
+      });
+
+      tinymce.init({
+        selector: '#post-content2',
+        plugins: 'table advlist lists image media anchor hr link autoresize',
+        toolbar: 'formatselect bold forecolor backcolor | bullist numlist | link image media anchor | table | code',
+      });
+
+      tinymce.init({
+        selector: '#post-content3',
+        plugins: 'table advlist lists image media anchor hr link autoresize',
+        toolbar: 'formatselect bold forecolor backcolor | bullist numlist | link image media anchor | table | code',
+      });
+
+      tinymce.init({
+        selector: '#post-content4',
+        plugins: 'table advlist lists image media anchor hr link autoresize',
+        toolbar: 'formatselect bold forecolor backcolor | bullist numlist | link image media anchor | table | code',
       });
     });
   </script>
