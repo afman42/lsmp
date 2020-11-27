@@ -36,7 +36,13 @@
                         <td><?= $no++; ?></td>
                         <td><?= $k->kelas_nama; ?></td>
                         <td><?= $k->mapel_nama; ?></td>
-                        <td><a href="<?= site_url('pengajar/ujian_kelas/'.$k->id);?>" class="btn btn-sm btn-primary">Detail</a></td>
+                        <?php 
+                        $uri = $this->uri->segment(2);
+                        if ($uri == 'kuis') {?>
+                          <td><a href="<?= site_url('pengajar/kuis_kelas/'.$k->id);?>" class="btn btn-sm btn-primary">Detail</a></td>
+                        <?php }else {?>
+                          <td><a href="<?= site_url('pengajar/ujian_kelas/'.$k->id);?>" class="btn btn-sm btn-primary">Detail</a></td>
+                        <?php }?>
                       </tr>
                       <?php } ?>
                     </tbody>

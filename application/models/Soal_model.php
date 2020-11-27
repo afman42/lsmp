@@ -8,6 +8,18 @@ class Soal_model extends CI_Model {
         $this->db->select('*,soal.id as soal_id');
         $this->db->from('soal');
         $this->db->join('ujian', 'ujian.id = soal.ujian_id');
+        $this->db->where('ujian.tipe',1);
+        $this->db->where('soal.ujian_id',$id);
+        $this->db->where('soal.pengajar_id',$pengajar);
+        return $this->db->get();
+    }
+
+    public function soal_kuis($id,$pengajar)
+    {
+        $this->db->select('*,soal.id as soal_id');
+        $this->db->from('soal');
+        $this->db->join('ujian', 'ujian.id = soal.ujian_id');
+        $this->db->where('ujian.tipe',2);
         $this->db->where('soal.ujian_id',$id);
         $this->db->where('soal.pengajar_id',$pengajar);
         return $this->db->get();
@@ -27,8 +39,6 @@ class Soal_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('ujian');
-        // $this->db->join('kelas', 'kelas.id = mapel_kelas.kelas_id');
-        // $this->db->join('mapel', 'mapel.id = mapel_kelas.mapel_id');
         $this->db->where('ujian.pengajar_id',$pengajar);
         $this->db->where('ujian.mapel_kelas_id',$mapel);
         return $this->db->get();

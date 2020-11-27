@@ -17,8 +17,17 @@ class Ujian_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('ujian');
-        // $this->db->join('kelas', 'kelas.id = mapel_kelas.kelas_id');
-        // $this->db->join('mapel', 'mapel.id = mapel_kelas.mapel_id');
+        $this->db->where('ujian.tipe',1);
+        $this->db->where('ujian.pengajar_id',$pengajar);
+        $this->db->where('ujian.mapel_kelas_id',$mapel);
+        return $this->db->get();
+    }
+
+    public function ujian_kuis($pengajar,$mapel)
+    {
+        $this->db->select('*');
+        $this->db->from('ujian');
+        $this->db->where('ujian.tipe',2);
         $this->db->where('ujian.pengajar_id',$pengajar);
         $this->db->where('ujian.mapel_kelas_id',$mapel);
         return $this->db->get();
@@ -34,6 +43,11 @@ class Ujian_model extends CI_Model {
         return $this->db->insert('ujian',$data);
     }
 
+    public function tambah_kuis($data)
+    {
+        return $this->db->insert('ujian',$data);
+    }
+
     public function hapus_ujian($id)
     {
         $this->db->where('id', $id);
@@ -41,6 +55,12 @@ class Ujian_model extends CI_Model {
     }
 
     public function update_ujian($id,$data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('ujian', $data);
+    }
+
+    public function update_kuis($id,$data)
     {
         $this->db->where('id', $id);
         $this->db->update('ujian', $data);

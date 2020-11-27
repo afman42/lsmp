@@ -19,20 +19,26 @@
       
       <li class="nav-item <?php active_link('ujian') ?>">
         <a class="nav-link" href="<?= site_url('pengajar/ujian'); ?>">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-fw fa-stream"></i>
           <span>Ujian</span>
         </a>
       </li>
       <li class="nav-item <?php active_link('kuis') ?>">
         <a class="nav-link" href="<?= site_url('pengajar/kuis'); ?>">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-fw fa-question"></i>
           <span>Kuis</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?= site_url('pengajar/ubah_profil'); ?>">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-fw fa-cog"></i>
           <span>Ubah Profil</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('utama/logout'); ?>">
+          <i class="fas fa-fw fa-sign-out-alt"></i>
+          <span>Keluar</span>
         </a>
       </li>
       <!-- <li class="nav-item">
