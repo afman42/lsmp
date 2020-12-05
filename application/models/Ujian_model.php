@@ -13,6 +13,26 @@ class Ujian_model extends CI_Model {
         return $this->db->get();
     }
 
+    public function ujian_hitung($pengajar,$mapel)
+    {
+        $this->db->select('COUNT(*) as ujian_hitung');
+        $this->db->from('ujian');
+        $this->db->where('ujian.tipe',1);
+        $this->db->where('ujian.pengajar_id',$pengajar);
+        $this->db->where('ujian.mapel_kelas_id',$mapel);
+        return $this->db->get();
+    }
+
+    public function ujian_kuis_hitung($pengajar,$mapel)
+    {
+        $this->db->select('COUNT(*) as kuis_hitung');
+        $this->db->from('ujian');
+        $this->db->where('ujian.tipe',1);
+        $this->db->where('ujian.pengajar_id',$pengajar);
+        $this->db->where('ujian.mapel_kelas_id',$mapel);
+        return $this->db->get();
+    }
+
     public function ujian($pengajar,$mapel)
     {
         $this->db->select('*');

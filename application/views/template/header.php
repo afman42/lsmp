@@ -22,7 +22,10 @@
    <?php include 'sidebar_admin.php'; ?>
    <?php }else if($this->session->userdata('level') == 2) { ?>
    <?php include 'sidebar_pengajar.php'; ?>
-   <?php }?>
+   <?php }else{
+     include 'sidebar_siswa.php'; ?>
+    }  
+   ?>
    <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <!-- TopBar -->

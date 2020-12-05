@@ -88,6 +88,6 @@ class Utama extends CI_Controller {
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect(site_url('utama'));
+        redirect(site_url('utama/login'));
     }
 }

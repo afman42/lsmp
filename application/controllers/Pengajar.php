@@ -14,7 +14,12 @@ class Pengajar extends CI_Controller {
 
     public function index()
 	{
-		$this->load->view('welcome_message');
+		$data['header'] = 'E-elearning - Pengajar';
+		$data['ujian'] = $this->Ujian_model->ujian_hitung($_SESSION['id_pengajar'],$_SESSION['mapel_id'])->result();
+		$data['kuis'] = $this->Ujian_model->ujian_kuis_hitung($_SESSION['id_pengajar'],$_SESSION['mapel_id'])->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('pengajar/index',$data);
+		$this->load->view('template/footer');
 	}
 
 	//Kuis
