@@ -36,6 +36,12 @@
                         </select>
                       </div>
                       <div class="form-group">
+                        <select name="hari" class="form-control" required>
+                        <option value="">-- Pilihan Hari --</option>
+                        <?php hari(); ?>
+                        </select>
+                      </div>
+                      <div class="form-group">
                         <a href="<?= site_url('admin/mapel');?>" class="btn btn-sm btn-primary">Kembali</a>
                         <button type="submit" class="btn btn-sm btn-secondary">Kirim</button>
                       </div>

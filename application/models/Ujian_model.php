@@ -13,6 +13,7 @@ class Ujian_model extends CI_Model {
         return $this->db->get();
     }
 
+
     public function ujian_hitung($pengajar,$mapel)
     {
         $this->db->select('COUNT(*) as ujian_hitung');

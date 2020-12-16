@@ -19,6 +19,15 @@ function agama($id = null){
     echo '<option value="kristen"'; if(isset($id) && $id =='kristen'){ echo 'selected';} echo '>Kristen</option>';
 }
 
+function hari($id = null){
+    echo '<option value="senin"'; if(isset($id) && $id =='senin'){ echo 'selected';} echo '>Senin</option>';
+    echo '<option value="selasa"'; if(isset($id) && $id =='selasa'){ echo 'selected';} echo '>Selasa</option>';
+    echo '<option value="rabu"'; if(isset($id) && $id =='rabu'){ echo 'selected';} echo '>Rabu</option>';
+    echo '<option value="kamis"'; if(isset($id) && $id == 'kamis'){ echo 'selected';} echo '>Kamis</option>';
+    echo '<option value="jumat"'; if(isset($id) && $id =='jumat'){ echo 'selected';} echo '>Jumat</option>';
+    echo '<option value="sabtu"'; if(isset($id) && $id =='sabtu'){ echo 'selected';} echo '>Sabtu</option>';
+}
+
 function ubah_date_time($timestamp){
     return date('Y-m-d H:i:s', strtotime($timestamp));
 }

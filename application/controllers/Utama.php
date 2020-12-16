@@ -5,7 +5,7 @@ class Utama extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		redirect(site_url('utama/login'));
 	}
 
 	public function login()

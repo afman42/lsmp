@@ -10,9 +10,9 @@
   <meta name="author" content="">
   <link href="img/logo/logo.png" rel="icon">
   <title>E-learning SMP - Login</title>
-  <link href="<?= base_url();?>/RuangAdmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="<?= base_url();?>/RuangAdmin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="<?= base_url();?>/RuangAdmin/css/ruang-admin.min.css" rel="stylesheet">
+  <link href="<?= base_url();?>RuangAdmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="<?= base_url();?>RuangAdmin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="<?= base_url();?>RuangAdmin/css/ruang-admin.min.css" rel="stylesheet">
 
 </head>
 
@@ -53,8 +53,8 @@
     </div>
   </div>
   <!-- Login Content -->
-  <script src="<?= base_url();?>/RuangAdmin/vendor/jquery/jquery.min.js"></script>
-  <script src="<?= base_url();?>/RuangAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?= base_url();?>RuangAdmin/vendor/jquery/jquery.min.js"></script>
+  <script src="<?= base_url();?>RuangAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="<?= base_url();?>/RuangAdmin/vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="<?= base_url();?>/RuangAdmin/js/ruang-admin.min.js"></script>
 </body>

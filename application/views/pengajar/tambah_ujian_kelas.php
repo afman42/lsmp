@@ -32,16 +32,8 @@
                         <input type="number" name="jsoal" class="form-control" placeholder="Masukan Jumlah Soal" required>
                       </div>
                       <div class="form-group">
-                        <div class="row">
-                          <div class="col-lg-6">
-                            <label>Jam Mulai</label>
-                            <input type="datetime-local" name="jam_mulai" class="form-control" placeholder="Masukan Jam Mulai" required>
-                          </div>
-                          <div class="col-lg-6">
-                            <label>Jam Selesai</label>
-                            <input type="datetime-local" name="jam_selesai" class="form-control" placeholder="Masukan Jam Selesai" required>
-                          </div>
-                        </div>
+                          <label>Menit</label>
+                          <input type="number" name="menit" class="form-control" placeholder="Masukan Menit" required>
                       </div>
                       <div class="form-group">
                         <label>Tanggal Berakhir</label>

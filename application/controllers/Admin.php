@@ -397,6 +397,7 @@ class Admin extends CI_Controller {
 		$data = [
 				'kelas_id' => $post['kelas_id'],	
 				'mapel_id' => $post['mapel_id'],	
+				'hari' => $post['hari'],	
 			];
 		$this->Mapel_kelas_model->tambah_mapel_ajar($data);
 		
@@ -409,7 +410,8 @@ class Admin extends CI_Controller {
 		$post = $this->input->post();
 		$data = [
 			'kelas_id' => $post['kelas_id'],	
-			'mapel_id' => $post['mapel_id'],	
+			'mapel_id' => $post['mapel_id'],
+			'hari' => $post['hari'],
 		];
 		
 		$this->Mapel_kelas_model->update_mapel_ajar($id,$data);

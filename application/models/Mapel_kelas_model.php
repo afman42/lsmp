@@ -5,7 +5,7 @@ class Mapel_kelas_model extends CI_Model {
 
     public function mapel_ajar()
     {
-        $this->db->select('*, kelas.nama as kelas_nama, mapel.nama as mapel_nama');
+        $this->db->select('*, kelas.nama as kelas_nama, mapel.nama as mapel_nama, mapel_kelas.id as mapel_kelas_id');
         $this->db->from('mapel_kelas');
         $this->db->join('kelas', 'kelas.id = mapel_kelas.kelas_id');
         $this->db->join('mapel', 'mapel.id = mapel_kelas.mapel_id');

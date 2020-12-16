@@ -16,7 +16,7 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Soal <?= $ujian->nama_ujian; ?>  <?php
                   foreach ($hitung as $k) {
-                  if ($k->hitung <= 10) {?>
+                  if ($k->hitung < intval($ujian->jsoal)) {?>
                   <a href="<?= site_url('pengajar/tambah_soal_siswa/'.$ujian->id); ?>" class="btn btn-sm btn-primary">Tambah</a></h6>
                 <?php } else {
                   echo "Pertanyaan Soal Sudah Penuh Harap dihapus lagi. Soal : ".$k->hitung;

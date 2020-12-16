@@ -152,8 +152,7 @@ class Pengajar extends CI_Controller {
 		$data = [
 			'nama_ujian' => $post['nama_ujian'],
 			'jsoal' => $post['jsoal'],
-			'jam_mulai' => ubah_date_time($post['jam_mulai']),
-			'jam_selesai' => ubah_date_time($post['jam_selesai']),
+			'menit' => $post['menit'],
 			'mapel_kelas_id' => $id,
 			'pengajar_id' => $_SESSION['id_pengajar'],
 			'tgl_expired' => ubah_date_time($post['tgl_expired']),
@@ -187,15 +186,14 @@ class Pengajar extends CI_Controller {
 		$data = [
 			'nama_ujian' => $post['nama_ujian'],
 			'jsoal' => $post['jsoal'],
-			'jam_mulai' => ubah_date_time($post['jam_mulai']),
-			'jam_selesai' => ubah_date_time($post['jam_selesai']),
+			'menit' => $post['menit'],
 			'tgl_expired' => ubah_date_time($post['tgl_expired'])
 		];
 		// var_dump($data);
 		$this->Ujian_model->update_ujian($id,$data);
-		$kelas = $this->Ujian_model->kelas($id)->row(1);		
+		$ujian = $this->Ujian_model->cek_ujian($id)->row(1);		
 		$this->session->set_flashdata('success','Berhasil Update Ujian Siswa');
-		redirect(site_url('pengajar/ujian_kelas/'.$kelas->id));
+		redirect(site_url('pengajar/ujian_kelas/'.$ujian->mapel_kelas_id));
 	}
 
 	public function hapus_ujian_kelas($id)

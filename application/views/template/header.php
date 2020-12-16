@@ -13,7 +13,6 @@
   <link href="<?= base_url();?>/RuangAdmin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="<?= base_url();?>/RuangAdmin/css/ruang-admin.min.css" rel="stylesheet">
   <link href="<?= base_url();?>/RuangAdmin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <link href="<?= base_url();?>/RuangAdmin/vendor/jquery-timepicker/jquery.timepicker.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -23,7 +22,7 @@
    <?php }else if($this->session->userdata('level') == 2) { ?>
    <?php include 'sidebar_pengajar.php'; ?>
    <?php }else{
-     include 'sidebar_siswa.php'; ?>
+     include 'sidebar_siswa.php'; 
     }  
    ?>
    <div id="content-wrapper" class="d-flex flex-column">
@@ -39,7 +38,11 @@
                 aria-haspopup="true" aria-expanded="false">
                 <?php
                 $admin= $this->db->get_where('user',['level' => $this->session->userdata('level')])->row();
-                $pengajar = $this->db->get_where('pengajar',['id' => $admin->is_pengajar ])->row(); 
+                if($this->session->userdata('level') == 2 || $this->session->userdata('level') == 1){
+                  $pengajar = $this->db->get_where('pengajar',['id' => $admin->is_pengajar ])->row(); 
+                }else{
+                  $pengajar = $this->db->get_where('siswa',['id' => $admin->is_siswa ])->row(); 
+                }
                 if($pengajar->foto != null){
                 ?>
                 <img class="img-profile rounded-circle" src="<?= base_url().$pengajar->foto; ?>" style="max-width: 60px">
