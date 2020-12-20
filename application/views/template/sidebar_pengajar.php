@@ -2,7 +2,7 @@
    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon">
-          <img src="img/logo/logo2.png">
+          <img src="<?= base_url('assets/pendidikan.png');?>">
         </div>
         <div class="sidebar-brand-text mx-3">E-learning</div>
       </a>
@@ -18,9 +18,9 @@
       </div> -->
       
       <li class="nav-item <?php active_link('ujian') ?>">
-        <a class="nav-link" href="<?= site_url('pengajar/ujian'); ?>">
+        <a class="nav-link" href="<?= site_url('pengajar/tugas'); ?>">
           <i class="fas fa-fw fa-stream"></i>
-          <span>Ujian</span>
+          <span>Tugas</span>
         </a>
       </li>
       <li class="nav-item <?php active_link('kuis') ?>">

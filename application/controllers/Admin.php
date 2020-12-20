@@ -14,9 +14,12 @@ class Admin extends CI_Controller {
 
     public function index()
 	{
+		$data['pengajar'] = $this->Admin_model->hitung_pengajar()->result();
+		$data['siswa'] = $this->Admin_model->hitung_siswa()->result();
+		$data['kelas'] = $this->Admin_model->hitung_kelas()->result();
 		$data['header'] = 'E-elearning - Admin';
 		$this->load->view('template/header',$data);
-		$this->load->view('admin/beranda');
+		$this->load->view('admin/beranda',$data);
 		$this->load->view('template/footer');
 	}
 
@@ -67,7 +70,6 @@ class Admin extends CI_Controller {
 					'tempat_lahir' => $post['tempat_lahir'],
 					'tgl_lahir' => $post['tgl_lahir'],
 					'foto' => 'uploads/'.$featured_image,
-					'mapel_id' => $post['mapel_id'],
 					'jk' => $post['jk'],
 					'alamat' => $post['alamat'],
 				];
@@ -107,7 +109,6 @@ class Admin extends CI_Controller {
 					'tempat_lahir' => $post['tempat_lahir'],
 					'tgl_lahir' => $post['tgl_lahir'],
 					'foto' => 'uploads/'.$featured_image,
-					'mapel_id' => $post['mapel_id'],
 					'jk' => $post['jk'],
 					'alamat' => $post['alamat'],
 				];
@@ -123,7 +124,6 @@ class Admin extends CI_Controller {
 				'nama' => $post['nama'],
 				'tempat_lahir' => $post['tempat_lahir'],
 				'tgl_lahir' => $post['tgl_lahir'],
-				'mapel_id' => $post['mapel_id'],
 				'jk' => $post['jk'],
 				'alamat' => $post['alamat'],
 			];
@@ -374,6 +374,7 @@ class Admin extends CI_Controller {
 		$data['header'] = 'E-elearning - Tambah Mapel Ajar';
 		$data['mapel'] = $this->Mapel_model->mapel()->result();
 		$data['kelas'] = $this->Kelas_model->kelas()->result();
+		$data['pengajar'] = $this->Kelas_model->pengajar()->result();
 		$this->load->view('template/header',$data);
 		$this->load->view('admin/tambah_mapel_ajar',$data);
 		$this->load->view('template/footer');
@@ -396,7 +397,8 @@ class Admin extends CI_Controller {
 		
 		$data = [
 				'kelas_id' => $post['kelas_id'],	
-				'mapel_id' => $post['mapel_id'],	
+				'mapel_id' => $post['mapel_id'],
+				'pengajar_id' => $post['pengajar_id'],
 				'hari' => $post['hari'],	
 			];
 		$this->Mapel_kelas_model->tambah_mapel_ajar($data);
@@ -411,6 +413,7 @@ class Admin extends CI_Controller {
 		$data = [
 			'kelas_id' => $post['kelas_id'],	
 			'mapel_id' => $post['mapel_id'],
+			'pengajar_id' => $post['pengajar_id'],
 			'hari' => $post['hari'],
 		];
 		

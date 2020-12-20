@@ -20,6 +20,7 @@
                   <div class="col-lg-12">
                     <form action="<?= site_url('admin/insert_mapel_ajar');?>" method="post" class="p-3">
                       <div class="form-group">
+                        <label>Pilihan Kelas</label>
                         <select name="kelas_id" class="form-control" required>
                           <option value="">-- Pilihan Kelas --</option>
                           <?php foreach ($kelas as $k) {?>
@@ -28,6 +29,7 @@
                         </select>
                       </div>
                       <div class="form-group">
+                        <label>Pilihan Mapel</label>
                         <select name="mapel_id" class="form-control" required>
                         <option value="">-- Pilihan Mapel --</option>
                           <?php foreach ($mapel as $k) {?>
@@ -36,9 +38,19 @@
                         </select>
                       </div>
                       <div class="form-group">
+                        <label>Pilihan Hari</label>
                         <select name="hari" class="form-control" required>
                         <option value="">-- Pilihan Hari --</option>
                         <?php hari(); ?>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Pilihan Pengajar</label>
+                        <select name="pengajar_id" class="form-control" required>
+                        <option value="">-- Pilihan Pengajar --</option>
+                          <?php foreach ($pengajar as $k) {?>
+                            <option value="<?= $k->id; ?>"><?= $k->nama;?></option>
+                          <?php } ?>
                         </select>
                       </div>
                       <div class="form-group">

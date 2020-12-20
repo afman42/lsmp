@@ -3,6 +3,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin_model extends CI_Model {
 
+    public function hitung_pengajar()
+    {
+        $this->db->select('COUNT(*) as jumlah');
+        $this->db->from('pengajar');
+        return $this->db->get();
+    }
+
+    public function hitung_siswa()
+    {
+        $this->db->select('COUNT(*) as jumlah');
+        $this->db->from('siswa');
+        return $this->db->get();
+    }
+
+    public function hitung_kelas()
+    {
+        $this->db->select('COUNT(*) as jumlah');
+        $this->db->from('kelas');
+        return $this->db->get();
+    }
+
     public function pengajar()
     {
         return $this->db->query("SELECT * FROM pengajar");

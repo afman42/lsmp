@@ -3,13 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Ujian_model extends CI_Model {
 
-    public function kelas($id)
+    public function kelas($pengajar_id)
     {
         $this->db->select('*,kelas.nama as kelas_nama, mapel.nama as mapel_nama');
         $this->db->from('mapel_kelas');
         $this->db->join('kelas', 'kelas.id = mapel_kelas.kelas_id');
         $this->db->join('mapel', 'mapel.id = mapel_kelas.mapel_id');
-        $this->db->where('mapel_kelas.mapel_id',$id);
+        $this->db->where('mapel_kelas.pengajar_id',$pengajar_id);
         return $this->db->get();
     }
 
@@ -34,56 +34,33 @@ class Ujian_model extends CI_Model {
         return $this->db->get();
     }
 
-    public function ujian($pengajar,$mapel)
+    public function ujian($pengajar)
     {
         $this->db->select('*');
-        $this->db->from('ujian');
-        $this->db->where('ujian.tipe',1);
-        $this->db->where('ujian.pengajar_id',$pengajar);
-        $this->db->where('ujian.mapel_kelas_id',$mapel);
+        $this->db->from('topik_tugas');
+        $this->db->where('topik_tugas.pengajar_id',$pengajar);
         return $this->db->get();
     }
 
-    public function ujian_kuis($pengajar,$mapel)
+    public function cek_tugas($id)
     {
-        $this->db->select('*');
-        $this->db->from('ujian');
-        $this->db->where('ujian.tipe',2);
-        $this->db->where('ujian.pengajar_id',$pengajar);
-        $this->db->where('ujian.mapel_kelas_id',$mapel);
-        return $this->db->get();
+        return $this->db->get_where('topik_tugas',['id' => $id]);
     }
 
-    public function cek_ujian($id)
+    public function tambah_tugas($data)
     {
-        return $this->db->get_where('ujian',['id' => $id]);
+        return $this->db->insert('topik_tugas',$data);
     }
 
-    public function tambah_ujian($data)
-    {
-        return $this->db->insert('ujian',$data);
-    }
-
-    public function tambah_kuis($data)
-    {
-        return $this->db->insert('ujian',$data);
-    }
-
-    public function hapus_ujian($id)
+    public function hapus_tugas($id)
     {
         $this->db->where('id', $id);
-        $this->db->delete('ujian');
+        $this->db->delete('topik_tugas');
     }
 
-    public function update_ujian($id,$data)
+    public function update_tugas($id,$data)
     {
         $this->db->where('id', $id);
-        $this->db->update('ujian', $data);
-    }
-
-    public function update_kuis($id,$data)
-    {
-        $this->db->where('id', $id);
-        $this->db->update('ujian', $data);
+        $this->db->update('topik_tugas', $data);
     }
 }

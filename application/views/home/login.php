@@ -16,7 +16,7 @@
 
 </head>
 
-<body class="bg-gradient-login">
+<body class="bg-gradient-login" style="background-color: #909aab;">
   <!-- Login Content -->
   <div class="container-login">
     <div class="row justify-content-center">
@@ -27,7 +27,8 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">E-learning - Login</h1>
+                    <p><img src="<?= base_url('assets/pendidikan.png');?>" height="100"></p>
+                    <h1 class="h4 text-gray-900 mb-4">Website E-learning <br> Sekolah Menengah Pertama <br> Di Kecamatan Pontianak Utara</h1>
                   </div>
                   <?php if(isset($_SESSION['error'])) alert($_SESSION['error'],'danger');?>
                   <form class="user" action="<?= site_url('utama/login'); ?>" method="post">

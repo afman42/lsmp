@@ -24,6 +24,7 @@
                         <th>No</th>
                         <th>Kelas</th>
                         <th>Mata Pelajaran</th>
+                        <th>Hari</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -36,6 +37,7 @@
                         <td><?= $no++; ?></td>
                         <td><?= $k->kelas_nama; ?></td>
                         <td><?= $k->mapel_nama; ?></td>
+                        <td><?= $k->hari; ?></td>
                         <td><a href="<?= site_url('admin/edit_mapel_ajar/'.$k->mapel_kelas_id);?>" class="btn btn-sm btn-primary">Edit</a> <a href="<?= site_url('admin/hapus_mapel_ajar/'.$k->mapel_kelas_id);?>" class="btn btn-sm btn-danger">Hapus</a></td>
                       </tr>
                       <?php } ?>

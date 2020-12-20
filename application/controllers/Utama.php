@@ -81,7 +81,7 @@ class Utama extends CI_Controller {
             redirect(site_url('pengajar'));
         }
         else{
-            redirect(site_url('murid'));
+            redirect(site_url('siswa'));
         }
     }
 

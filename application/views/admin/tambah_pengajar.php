@@ -21,36 +21,37 @@
                   <div class="col-lg-12">
                     <form action="<?= site_url('admin/insert_pengajar');?>" method="post" class="p-3" enctype="multipart/form-data">
                       <div class="form-group">
+                        <label>Nip</label>
                         <input type="text" class="form-control" name="nip" placeholder="Masukan Nip" required>
                       </div>
                       <div class="form-group">
+                        <label>Nama</label>
                         <input type="text" class="form-control" name="nama" placeholder="Masukan Nama" required>
                       </div>
                       <div class="form-group">
-                        <input type="radio" name="jk" value="1">Laki - Laki
+                        <label>Jenis Kelamin</label>
+                        <input type="radio" name="jk" value="1" required>Laki - Laki
                         <input type="radio" name="jk" value="0">Perempuan
                       </div>
                       <div class="form-group">
+                        <label>Alamat</label>
                         <textarea name="alamat" class="form-control" required placeholder="Masukan Alamat"></textarea>
                       </div>
                       <div class="form-group">
+                        <label>Tempat Lahir</label>
                         <input type="text" class="form-control" name="tempat_lahir" placeholder="Masukan Tempat Lahir" required>
                       </div>
                       <div class="form-group">
+                        <label>Tanggal Lahir</label>
                         <input type="date" class="form-control" name="tgl_lahir" placeholder="Masukan Tanggal Lahir" required>
                       </div>
                       <div class="form-group">
+                        <label>Foto</label>
                         <input type="file" class="form-control" name="foto" required>
-                      </div>
-                      <div class="form-group">
-                        <select name="mapel_id" class="form-control" required>
-                        <?php foreach ($mapel as $n) {?>
-                            <option value="<?= $n->id; ?>"><?= $n->nama; ?></option>
-                          <?php } ?>
-                        </select>
                       </div>
                       <hr>
                       <div class="form-group">
+                        <label>Email</label>
                         <input type="email" class="form-control" name="email" placeholder="Masukan Email" required>
                       </div>
                       <div class="form-group">

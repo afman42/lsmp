@@ -106,6 +106,7 @@
                         <th>No</th>
                         <th>Makul</th>
                         <th>Hari</th>
+                        <th>Pengajar</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -115,7 +116,8 @@
                         <tr>
                           <td><?= $no++; ?></td>
                           <td><?= $k->mapel_nama; ?></td>
-                          <td>Nasi Padan0</td>
+                          <td><?= $k->hari; ?></td>
+                          <td><?= $k->nama_pengajar; ?></td>
                         </tr>  
                       <?php endforeach ?>
                       

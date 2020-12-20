@@ -3,6 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Kelas_model extends CI_Model {
 
+    public function pengajar()
+    {
+        return $this->db->get('pengajar');
+    }
+
     public function kelas()
     {
         return $this->db->get('kelas');

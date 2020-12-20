@@ -15,13 +15,7 @@
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">
-                    <?php 
-                      $uri = $this->uri->segment(2);
-                      if ($uri == 'kuis_kelas') {?>
-                        <a href="<?= site_url('pengajar/tambah_kuis_kelas/'.$kelas->id); ?>" class="btn btn-sm btn-primary">Tambah Kuis</a>
-                      <?php } else { ?>
-                        <a href="<?= site_url('pengajar/tambah_ujian_kelas/'.$kelas->id); ?>" class="btn btn-sm btn-primary">Tambah Ujian</a>
-                      <?php } ?>
+                    <a href="<?= site_url('pengajar/tambah_tugas_kelas/'.$kelas->id); ?>" class="btn btn-sm btn-primary">Tambah Tugas</a>
                   </h6>
                 </div>
                 <?php if(isset($_SESSION['success'])) alert($_SESSION['success'],'success');?>
@@ -31,9 +25,8 @@
                       <tr>
                         <th>No</th>
                         <th>Nama Ujian</th>
-                        <th>Jumlah Soal</th>
                         <th>Tanggal dibuat</th>
-                        <th>Tanggal berakhir</th>
+                        <th>Tugas Pilganda / Essay</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -44,16 +37,12 @@
                       ?>
                       <tr>
                         <td><?= $no++; ?></td>
-                        <td><?= $k->nama_ujian; ?></td>
-                        <td><?= $k->jsoal; ?></td>
+                        <td><?= $k->judul; ?></td>
                         <td><?= $k->tgl_dibuat; ?></td>
-                        <td><?= $k->tgl_expired; ?></td>
-                        <?php 
-                        if ($uri == 'kuis_kelas') {?>
-                          <td><a href="<?= site_url('pengajar/soal/'.$k->id);?>" class="btn btn-sm btn-primary">Kuis</a> <a href="<?= site_url('pengajar/edit_kuis_kelas/'.$k->id);?>" class="btn btn-sm btn-danger">Edit</a> <a href="<?= site_url('pengajar/hapus_kuis_kelas/'.$k->id);?>" class="btn btn-sm btn-warning">Hapus</a></td>
-                        <?php }else {?>
-                          <td><a href="<?= site_url('pengajar/soal/'.$k->id);?>" class="btn btn-sm btn-primary">Soal</a> <a href="<?= site_url('pengajar/edit_ujian_kelas/'.$k->id);?>" class="btn btn-sm btn-danger">Edit</a> <a href="<?= site_url('pengajar/hapus_ujian_kelas/'.$k->id);?>" class="btn btn-sm btn-warning">Hapus</a></td>
-                        <?php }?>
+                        <td>
+                          <a href="<?= site_url('pengajar/soal_pilganda/'.$k->id);?>" class="btn btn-sm btn-primary">Soal Pilganda</a> <a href="<?= site_url('pengajar/soal_essay/'.$k->id);?>" class="btn btn-sm btn-primary">Soal Essay</a>
+                        </td>
+                        <td><a href="<?= site_url('pengajar/edit_tugas_kelas/'.$k->id);?>" class="btn btn-sm btn-danger">Edit</a> <a href="<?= site_url('pengajar/hapus_tugas_kelas/'.$k->id);?>" class="btn btn-sm btn-warning">Hapus</a></td>
                       </tr>
                       <?php } ?>
                     </tbody>
