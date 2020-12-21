@@ -16,7 +16,7 @@
                 </div>
                 <div class="table-responsive p-3">
                 <form method=POST action='<?= site_url('siswa/kerjakan_soal'); ?>' target='_blank'>
-                  <input type=hidden name='waktu' value='<?= $kerjakan->menit; ?>'>
+                  <input type=hidden name='waktu' value='<?= $kerjakan->waktu_pengerjaan; ?>'>
                   <input type=hidden name='id' value='<?= $kerjakan->id_ujian; ?>'>
                   <h4>Baca dengan seksama dan teliti sebelum mengerjakan Ujian / Quiz</h4>
                   <h4>1. Pastikan koneksi anda terjamin dan bagus, misalnya Warnet.<br>

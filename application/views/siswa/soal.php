@@ -1,33 +1,120 @@
 <?php
 
-if (empty($_SESSION['level']) AND empty($_SESSION['email'])){
-  echo "<center><br><br><br><br><br><br>Maaf, untuk masuk <b>Halaman</b><br>
-  <center>anda harus <b>Login</b> dahulu!<br><br>";
- echo "<div> <a href='index.php'><img src='images/kunci.png'  height=176 width=143></a>
-             </div>";
-  echo "<input type=button class='btn btn-primary' value='LOGIN DI SINI' onclick=location.href='".site_url('utama/login')."'></a></center>";
+if (empty($_SESSION['email']) AND empty($_SESSION['level']) AND $_SESSION['login'] != TRUE){
+    echo "<script type='text/javascript'>alert('Harap Login Terlebih dahulu');window.location.href='".site_url('utama/login')."'</script>";
 }
 else{
 ?>
-
 <html>
 <header>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="description"  content=""/>
 <meta name="keywords" content=""/>
 <meta http-equiv="imagetoolbar" content="no"/>
-<title>.::Halaman Ujian / Quiz ::.</title>
+<title>.::Halaman Tugas / Quiz::.</title>
 <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
-  <link href="<?= base_url();?>/RuangAdmin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="<?= base_url();?>/RuangAdmin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <style type="text/css">
-      table td, table td * {
-    vertical-align: top;
+<link rel="stylesheet" href="css/reset.css" type="text/css"/>
+<link rel="stylesheet" href="<?= base_url('assets/css/screen.css'); ?>" type="text/css"/>
+<link href="<?= base_url();?>/RuangAdmin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="css/fancybox.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.wysiwyg.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.ui.css" type="text/css"/>
+<link rel="stylesheet" href="css/visualize.css" type="text/css"/>
+<link rel="stylesheet" href="css/visualize-light.css" type="text/css"/>
+
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.visualize.js"></script>
+<script type="text/javascript" src="js/jquery.wysiwyg.js"></script>
+<script type="text/javascript" src="js/tiny_mce/jquery.tinymce.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.js"></script>
+<script type="text/javascript" src="js/jquery.idtabs.js"></script>
+<script type="text/javascript" src="js/jquery.datatables.js"></script>
+<script type="text/javascript" src="js/jquery.jeditable.js"></script>
+<script type="text/javascript" src="js/jquery.ui.js"></script>
+<script type="text/javascript" src="js/clock.js"></script>
+
+<script type="text/javascript" src="js/excanvas.js"></script>
+<script type="text/javascript" src="js/cufon.js"></script>
+<script type="text/javascript" src="js/Geometr231_Hv_BT_400.font.js"></script>
+
+<script language="javascript" type="text/javascript">
+    tinyMCE_GZ.init({
+    plugins : 'style,layer,table,save,advhr,advimage, ...',
+        themes  : 'simple,advanced',
+        languages : 'en',
+        disk_cache : true,
+        debug : false
+});
+</script>
+<script language="javascript" type="text/javascript"
+src="../tinymcpuk/tiny_mce_src.js"></script>
+<script type="text/javascript">
+tinyMCE.init({
+        mode : "textareas",
+        theme : "advanced",
+        plugins : "table,youtube,advhr,advimage,advlink,emotions,flash,searchreplace,paste,directionality,noneditable,contextmenu",
+        theme_advanced_buttons1_add : "fontselect,fontsizeselect",
+        theme_advanced_buttons2_add : "separator,preview,zoom,separator,forecolor,backcolor,liststyle",
+        theme_advanced_buttons2_add_before: "cut,copy,paste,separator,search,replace,separator",
+        theme_advanced_buttons3_add_before : "tablecontrols,separator,youtube,separator",
+        theme_advanced_buttons3_add : "emotions,flash",
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_statusbar_location : "bottom",
+        extended_valid_elements : "hr[class|width|size|noshade]",
+        file_browser_callback : "fileBrowserCallBack",
+        paste_use_dialog : false,
+        theme_advanced_resizing : true,
+        theme_advanced_resize_horizontal : false,
+        theme_advanced_link_targets : "_something=My somthing;_something2=My somthing2;_something3=My somthing3;",
+        apply_source_formatting : true
+});
+
+    function fileBrowserCallBack(field_name, url, type, win) {
+        var connector = "../../filemanager/browser.html?Connector=connectors/php/connector.php";
+        var enableAutoTypeSelection = true;
+
+        var cType;
+        tinymcpuk_field = field_name;
+        tinymcpuk = win;
+
+        switch (type) {
+            case "image":
+                cType = "Image";
+                break;
+            case "flash":
+                cType = "Flash";
+                break;
+            case "file":
+                cType = "File";
+                break;
+        }
+
+        if (enableAutoTypeSelection && cType) {
+            connector += "&Type=" + cType;
+        }
+
+        window.open(connector, "tinymcpuk", "modal,width=600,height=400");
+    }
+</script>
+
+<style type="text/css">
+<!--
+.style3 {
+    color: #62A621;
+    font-weight: bold;
 }
-  </style>
+.garisbawah {
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #CCC;
+}
+-->
+</style>
 <script>
 var waktunya;
-waktunya = <?php echo "$_POST[waktu]"; ?> * 60;
+waktunya = <?php echo "$_POST[waktu]" * 60; ?>;
 var waktu;
 var jalan = 0;
 var habis = 0;
@@ -73,7 +160,7 @@ function mulai(){
             clearTimeout(t);
         }
         habis = 1;
-        // document.getElementById("formulir").submit();
+        document.getElementById("formulir").submit();
     }
 }
 function selesai(){    
@@ -81,7 +168,7 @@ function selesai(){
             clearTimeout(t);
         }
         habis = 1;
-    // document.getElementById("formulir").submit();
+    document.getElementById("formulir").submit();
 }
 function getCookie(c_name){
     if (document.cookie.length>0){
@@ -120,102 +207,181 @@ function checkCookie(){
 <script type="text/javascript">
 function tombol()
 {
-document.getElementById("tombol").innerHTML= "<input type=button value=Simpan onclick=selesai()>";
+document.getElementById("tombol").innerHTML= "<input type='button' class='btn btn-primary' value='Simpan' onclick='selesai()'>";
 }
 </script>
 </header>
 <body onload="init(),noBack();" onpageshow="if (event.persisted) noBack();" onunload="keluar()">
-    <div class="container" style="margin-top: 50px;">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem; background-color: #a2b9de;">
-                  <img class="card-img-top" src="<?= base_url('uploads/kelas.png');?>" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Sekolah</h5>
-                    <p class="card-text">Sisa Waktu
-                          <div id=divwaktu></div>
-                    </p>
-                  </div>
-                </div>
+<div class="sidebar">
+        <div class="logo2 clear">
+            <img src="<?= base_url('assets/pendidikan.png'); ?>" alt="" style="margin-top:10px;margin-left:60;" width="150" height="150" />
+        </div>
+                    <div class="waktu">
+          <ul><li><a>Sisa Waktu Anda</a>
+              <ul>
+                  <div id=divwaktu></div>
+              </ul>
+            </li>
+                  </ul></div>
+</div>
+
+
+    <div class="main"> <!-- *** mainpage layout *** -->
+    <div class="main-wrap">
+        <div class="header clear">
+        </div>
+
+        <div class="page clear">
+            <!-- MODAL WINDOW -->
+            <div id="modal" class="modal-window">
+                <!-- <div class="modal-head clear"><a onclick="$.fancybox.close();" href="javascript:;" class="close-modal">Close</a></div> -->
+
+
             </div>
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <form action=nilai.php method=post id=formulir>
+
+            <!-- CONTENT BOXES -->
+            <!-- end of content-box -->
+<div class="notification note-success">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="2%">&nbsp;</td>
+      <td width="95%">
+
+<form action='<?= site_url('siswa/nilai');?>' method='post' id='formulir'>
 
 <?php
-$user_id = $this->db->get_where('user',['level' => $_SESSION['level']])->row();
-$cek_siswa = $this->db->query("SELECT * FROM siswa_mengerjakan WHERE ujian_id='$_POST[id]' AND siswa_id='$user_id->is_siswa'");
+$user = $this->db->get_where('user',['level' => $this->session->userdata('level')])->row();
+
+$cek_siswa = $this->db->query("SELECT * FROM siswa_mengerjakan WHERE topik_tugas_id='$_POST[id]' AND siswa_id='$user->is_siswa'");
 $info_siswa = $cek_siswa->row_array();
 if ($info_siswa['hits']<= 0){
-    $this->db->query("INSERT INTO siswa_mengerjakan (siswa_id,hits,ujian_id)
-                                        VALUES ('$user_id->is_siswa',1,'$_POST[id]')");
+    $hits = $info_siswa + 1;
+    $this->db->query("INSERT INTO siswa_mengerjakan (topik_tugas_id,siswa_id,hits)
+                                        VALUES ('$_POST[id]','$user->is_siswa','$hits')");
 }
-elseif ($info_siswa[hits] > 0){
+elseif ($info_siswa['hits'] > 0){
 }
 
-$soal = $this->db->query("SELECT *,soal.id as soal_id FROM ujian INNER JOIN soal ON ujian.id = soal.ujian_id where ujian.id='$_POST[id]' ORDER BY rand()");
+$soal = $this->db->query("SELECT * FROM quiz_pilganda where topik_tugas_id='$_POST[id]' ORDER BY rand()");
 $pilganda = $soal->num_rows();
-// $soal_esay = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM quiz_esay WHERE id_tq='$_POST[id]'");
-// $esay = mysqli_num_rows($soal_esay);
-if (!empty($pilganda)){
-echo "<b>Daftar Soal Pilihan Ganda</b>
-    <table border=1>
-    <input type=hidden name=id_topik value='$_POST[id]'>";
+$soal_esay = $this->db->query("SELECT * FROM quiz_essay WHERE topik_tugas_id='$_POST[id]'");
+$esay = $soal_esay->num_rows();
+if (!empty($pilganda) AND !empty($esay)){
+echo "<br><b class='judul'>Daftar Soal Pilihan Ganda</b><br><p class='garisbawah'></p>
+    <table><input type=hidden name=id_topik value='$_POST[id]'>";
 
 $no = 1;
 // while($s = mysqli_fetch_array($soal)){
-    foreach ($soal->result_array() as $s ) {
-    // if ($s[gambar]!=''){
-    echo "<tr>
-            <td rowspan=5><h3>$no.</h3></td>
-            <td><h3>".$s['pertanyaan']."</h3></td>
-         </tr>";
-    // echo "<tr><td><img src='foto_soal_pilganda/medium_$s[gambar]'></td></tr>";    
-    echo "<tr>
-            <td><input type=radio name=soal_pilganda[".$s['soal_id']."] value='A' required>".$s['pg_a']."</td>
-          </tr>";
-    echo "<tr>
-            <td><input type=radio name=soal_pilganda[".$s['soal_id']."] value='B'>".$s['pg_b']."</td>
-          </tr>";
-    echo "<tr>
-            <td><input type=radio name=soal_pilganda[".$s['soal_id']."] value='C'>C. ".$s['pg_c']."</td>
-          </tr>";
-    echo "<tr>
-            <td><input type=radio name=soal_pilganda[".$s['soal_id']."] value='D'>D. ".$s['pg_d']."</td>
-          </tr>";
-    // }else{
-    //     echo "<tr><td rowspan=5><h3>$no.</h3></td><td><h3>".$s['pertanyaan']."</h3></td></tr>";        
-    //     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='A'>".$s['pil_a']."</td></tr>";
-    //     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='B'>B. ".$s['pil_b']."</td></tr>";
-    //     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='C'>C. ".$s['pil_c']."</td></tr>";
-    //     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id_quiz']."] value='D'>D. ".$s['pil_d']."</td></tr>";
-    // }
+foreach ($soal->result_array() as $s) {
+    if ($s['gambar']!=''){
+    echo "<tr><td rowspan=6><h4>$no.</h4></td><td><h4>".$s['pertanyaan']."</h4></td></tr>";
+    echo "<tr><td><img src='".base_url().$s['gambar']."' height='300' width='300'></td></tr>";    
+    echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='A'>A. ".$s['pil_a']."</td></tr>";
+    echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='B'>B. ".$s['pil_b']."</td></tr>";
+    echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='C'>C. ".$s['pil_c']."</td></tr>";
+    echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='D'>D. ".$s['pil_d']."</td></tr>";
+    }else{
+        echo "<tr><td rowspan=5><h4>$no.</h4></td><td><h4>".$s['pertanyaan']."</h4></td></tr>";        
+        echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='A'>A. ".$s['pil_a']."</td></tr>";
+        echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='B'>B. ".$s['pil_b']."</td></tr>";
+        echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='C'>C. ".$s['pil_c']."</td></tr>";
+        echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='D'>D. ".$s['pil_d']."</td></tr>";
+    }
     $no++;
+}
+echo "</table>";
+echo "<br><b class='judul'>Daftar Soal Essay</b><br><p class='garisbawah'></p>
+    <table>";
+$no2=1;
+// while($e=  mysqli_fetch_array($soal_esay)){
+foreach ($soal_esay->result_array() as $e) {
+    if (!empty($e['gambar'])){
+    echo "<tr><td rowspan=4><h4>$no2.</h4></td><td><h4>".$e['pertanyaan']."</h4></td></tr>";
+    echo "<tr><td><img src='".base_url().$e['gambar']."' height='300' width='300'></td></tr>";
+    echo "<tr><td>Jawaban : </td></tr>";
+    echo "<tr><td><textarea name=soal_esay[".$e['id']."] cols=95 rows=5></textarea></td></tr>";
+    }else{
+        echo "<tr><td rowspan=3><h4>$no2.</h4></td><td><h4>".$e['pertanyaan']."</h4></td></tr>";
+        echo "<tr><td>Jawaban : </td></tr>";
+        echo "<tr><td><textarea name=soal_esay[".$e['id']."] cols=95 rows=5></textarea></td></tr>";
+    }
+    $no2++;
 }
 echo "</table>";
 $jumlahsoal = $no - 1;
 echo "<input type=hidden name=jumlahsoalpilganda value=$jumlahsoal>";
 }
 
-elseif (empty($pilganda)){
+elseif (!empty($pilganda) AND empty($esay)){
+    echo "<br><b class='judul'>Daftar Soal Pilihan Ganda</b><br><p class='garisbawah'></p>
+    <table><input type=hidden name=id_topik value='$_POST[id]'>";
+
+$no = 1;
+// while($s = mysqli_fetch_array($soal)){
+foreach ($soal->result_array() as $s) {
+    if ($s['gambar']!=''){
+    echo "<tr><td rowspan=6><h4>$no.</ h4></td><tdh4>".$s['pertanyaan']."<h4></td></tr>";
+    echo "<tr><td><img src='".base_url().$e['gambar']."' height='300' width='300'></td></tr>";
+    echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='A'>A. ".$s['pil_a']."</td></tr>";
+    echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='B'>B. ".$s['pil_b']."</td></tr>";
+    echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='C'>C. ".$s['pil_c']."</td></tr>";
+    echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='D'>D. ".$s['pil_d']."</td></tr>";
+    }else{
+        echo "<tr><td rowspan=5><h4>$no.</ h4></td><tdh4>".$s['pertanyaan']."<h4></td></tr>";
+        echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='A'>A. ".$s['pil_a']."</td></tr>";
+        echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='B'>B. ".$s['pil_b']."</td></tr>";
+        echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='C'>C. ".$s['pil_c']."</td></tr>";
+        echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='D'>D. ".$s['pil_d']."</td></tr>";
+    }
+    $no++;
+}
+echo "</table>";
+$jumlahsoal = $no - 1;
+echo "<input type=hidden name=jumlahsoalpilganda value=$jumlahsoal>";
+}
+elseif (empty($pilganda) AND !empty($esay)){
+    echo "<br><b class='judul'>Daftar Soal Essay</b><br><p class='garisbawah'></p>
+    <table><input type=hidden name=id_topik value='$_POST[id]'>";
+$no2=1;
+// while($e=  mysqli_fetch_array($soal_esay)){
+foreach ($soal_esay->result_array() as $e) {
+    if (!empty($e['gambar'])){
+    echo "<tr><td rowspan=4><h3>$no2.</h3></td><td><h3>".$e['pertanyaan']."</h3></td></tr>";
+    echo "<tr><td><img src='".base_url().$e['gambar']."' height='300' width='300'></td></tr>";
+    echo "<tr><td>Jawaban : </td></tr>";
+    echo "<tr><td><textarea name=soal_esay[".$e['id']."] cols=95 rows=10></textarea></td></tr>";
+    }else{
+        echo "<tr><td rowspan=3><h3>$no2.</h3></td><td><h3>".$e['pertanyaan']."</h3></td></tr>";
+        echo "<tr><td>Jawaban : </td></tr>";
+        echo "<tr><td><textarea name=soal_esay[".$e['id']."] cols=95 rows=10></textarea></td></tr>";
+    }
+    $no2++;
+}
+echo "</table>";
+}
+elseif (empty($pilganda) AND empty($esay)){
     echo "<script>window.alert('Maaf belum ada soal di Topik Ini.');
-            window.location.href='".site_url('siswa/ujian')."'</script>";
+            window.location.href='".site_url('siswa/tugas')."')</script>";
 }
 ?>
-<br>
-<h5>
-    Apakah anda sudah yakin dengan jawaban anda dan ingin menyimpannya?  
-    <button type=button class="btn btn-sm btn-primary" onclick="tombol()">Ya</button></h5>
-<h5 id="tombol"></h5>
+<br><p class='garisbawah'></p>
+<h4>Apakah anda sudah yakin dengan jawaban anda dan ingin menyimpannya?  <button type=button class='btn btn-warning' onclick="tombol()">Ya</button></h4>
+<h3 id="tombol"></h3>
 </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+</td>
+      <td width="3%">&nbsp;</td>
+    </tr>
+  </table>
+</div>
+            <div class="clear">
+                <!-- end of content-box -->
+
+        </div><!-- end of page -->
+
+        <div class="footer clear"></div>
     </div>
-<script src="<?= base_url();?>RuangAdmin/vendor/jquery/jquery.min.js"></script>
-<script src="<?= base_url();?>RuangAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </div>
+</div>
+<?php }?>
 </body>
 </html>
-<?php } ?>

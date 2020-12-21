@@ -5,6 +5,9 @@ class Admin extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
+		if ($_SESSION['login'] != TRUE) {
+   			echo "<script type='text/javascript'>alert('Harap Login Terlebih dahulu');window.location.href='".site_url('utama/login')."'</script>";
+		}
 		$this->load->model('Admin_model');
 		$this->load->model('Mapel_model');
 		$this->load->model('Kelas_model');

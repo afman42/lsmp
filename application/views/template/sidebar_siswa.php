@@ -13,20 +13,14 @@
           <span>Beranda</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('siswa/ujian'); ?>">
-          <i class="fas fa-fw fa-user-circle"></i>
-          <span>Ujian</span>
+        <a class="nav-link" href="<?= site_url('siswa/tugas'); ?>">
+          <i class="fas fa-fw fa-archive"></i>
+          <span>Tugas</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('admin/kelas'); ?>">
-          <i class="fas fa-fw fa-user-circle"></i>
-          <span>Kelas</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('admin/nilai'); ?>">
-          <i class="fas fa-fw fa-user-circle"></i>
+        <a class="nav-link" href="<?= site_url('siswa/nilai'); ?>">
+          <i class="fas fa-fw fa-bell"></i>
           <span>Nilai</span>
         </a>
       </li>
