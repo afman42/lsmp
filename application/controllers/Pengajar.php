@@ -13,6 +13,8 @@ class Pengajar extends CI_Controller {
 		$this->load->model('Soal_model');
 		$this->load->model('Admin_model');
 		$this->load->model('Mapel_model');
+		$this->load->model('Jawaban_siswa_model');
+		$this->load->model('Siswa_model');
 	}
 
     public function index()
@@ -24,101 +26,6 @@ class Pengajar extends CI_Controller {
 		$this->load->view('template/header',$data);
 		$this->load->view('pengajar/index',$data);
 		$this->load->view('template/footer');
-	}
-
-	//Kuis
-	public function kuis()
-	{
-		$data['header'] = 'E-elearning - Kuis';
-		$data['kelas'] = $this->Ujian_model->kelas($_SESSION['mapel_id'])->result();
-		$this->load->view('template/header',$data);
-		$this->load->view('pengajar/kelas',$data);
-		$this->load->view('template/footer');
-	}
-
-	public function kuis_kelas($id)
-	{
-		$data['header'] = 'E-elearning - Kuis / Kelas';
-		$data['kelas'] = $this->Ujian_model->kelas($id)->row(1);
-		$data['ujian'] = $this->Ujian_model->ujian_kuis($_SESSION['id_pengajar'], $_SESSION['mapel_id'])->result();
-		$this->load->view('template/header',$data);
-		$this->load->view('pengajar/kelas_siswa',$data);
-		$this->load->view('template/footer');
-	}
-
-	public function tambah_kuis_kelas($id)
-	{
-		$data['header'] = 'E-elearning - Ujian / Kelas';
-		$data['kelas'] = $this->Ujian_model->kelas($id)->row(1);
-		$this->load->view('template/header',$data);
-		$this->load->view('pengajar/tambah_kuis_kelas',$data);
-		$this->load->view('template/footer');
-	}
-
-	public function insert_kuis_siswa($id)
-	{
-		$post = $this->input->post();
-		$data = [
-			'nama_ujian' => $post['nama_ujian'],
-			'jsoal' => $post['jsoal'],
-			'jam_mulai' => ubah_date_time($post['jam_mulai']),
-			'jam_selesai' => ubah_date_time($post['jam_selesai']),
-			'mapel_kelas_id' => $id,
-			'pengajar_id' => $_SESSION['id_pengajar'],
-			'tgl_expired' => ubah_date_time($post['tgl_expired']),
-			'tgl_dibuat' => date('Y-m-d'),
-			'tipe' => 2
-		];
-		// var_dump($data);
-		$save = $this->Ujian_model->tambah_kuis($data);
-		if ($save) {
-			$this->session->set_flashdata('success','Berhasil Tambah Kuis Siswa');
-			redirect(site_url('pengajar/kuis_kelas/'.$id));
-		} else {
-			$this->session->set_flashdata('success','Gagal Tambah Kuis Siswa');
-			redirect(site_url('pengajar/kuis_kelas/'.$id));
-		}
-	}
-
-	public function edit_kuis_kelas($id)
-	{
-		$data['header'] = 'E-elearning - Kuis / Kelas';
-		$data['ujian'] = $this->Ujian_model->cek_ujian($id)->row(1);
-		$data['kelas'] = $this->Ujian_model->kelas($data['ujian']->mapel_kelas_id)->row(1);
-		$this->load->view('template/header',$data);
-		$this->load->view('pengajar/edit_kuis_kelas',$data);
-		$this->load->view('template/footer');
-	}
-
-	public function update_kuis_siswa($id)
-	{
-		$post = $this->input->post();
-		$data = [
-			'nama_ujian' => $post['nama_ujian'],
-			'jsoal' => $post['jsoal'],
-			'jam_mulai' => ubah_date_time($post['jam_mulai']),
-			'jam_selesai' => ubah_date_time($post['jam_selesai']),
-			'tgl_expired' => ubah_date_time($post['tgl_expired'])
-		];
-		// var_dump($data);
-		$this->Ujian_model->update_kuis($id,$data);
-		$kelas = $this->Ujian_model->kelas($id)->row(1);		
-		$this->session->set_flashdata('success','Berhasil Update Kuis Siswa');
-		redirect(site_url('pengajar/kuis_kelas/'.$kelas->id));
-	}
-
-	public function hapus_kuis_kelas($id)
-	{
-		$model = $this->Ujian_model->cek_ujian($id)->row();
-		$kelas = $this->Ujian_model->kelas($model->mapel_kelas_id)->row(1);
-		if ($model != null) {
-			$this->Ujian_model->hapus_ujian($model->id);
-			$this->session->set_flashdata('success','Berhasil Hapus Kuis Siswa');
-			redirect(site_url('pengajar/kuis_kelas/'.$kelas->id));
-		}else{
-			$this->session->set_flashdata('success','Gagal Hapus Kuis Siswa');
-			redirect(site_url('pengajar/kuis_kelas/'.$kelas->id));
-		}
 	}
 
 	//Tugas
@@ -135,13 +42,13 @@ class Pengajar extends CI_Controller {
 	{
 		$data['header'] = 'E-elearning - Tugas / Kelas';
 		$data['kelas'] = $this->Ujian_model->kelas($_SESSION['id_pengajar'])->row(1);
-		$data['ujian'] = $this->Ujian_model->ujian($_SESSION['id_pengajar'])->result();
+		$data['ujian'] = $this->Ujian_model->ujian($_SESSION['id_pengajar'],$id)->result();
 		$this->load->view('template/header',$data);
 		$this->load->view('pengajar/kelas_siswa',$data);
 		$this->load->view('template/footer');
 	}
 
-	public function tambah_tugas_kelas($id)
+	public function tambah_tugas_kelas()
 	{
 		$data['header'] = 'E-elearning - Tugas / Kelas';
 		$data['kelas'] = $this->Ujian_model->kelas($_SESSION['id_pengajar'])->row(1);
@@ -150,13 +57,13 @@ class Pengajar extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
-	public function insert_tugas_siswa($id)
+	public function insert_tugas_siswa()
 	{
 		$post = $this->input->post();
 		$data = [
 			'judul' => $post['judul'],
 			'waktu_pengerjaan' => $post['waktu_pengerjaan'],
-			'mapel_kelas_id' => $id,
+			'mapel_kelas_id' => $post['mapel_kelas_id'],
 			'pengajar_id' => $_SESSION['id_pengajar'],
 			'tgl_dibuat' => date('Y-m-d'),
 			'terbit' => $post['terbit'],
@@ -210,6 +117,58 @@ class Pengajar extends CI_Controller {
 		}else{
 			$this->session->set_flashdata('success','Gagal Hapus Tugas Siswa');
 			redirect(site_url('pengajar/tugas_kelas/'.$kelas->id));
+		}
+	}
+
+	//Jawaban Siswa
+	public function jawaban_siswa($id)
+	{
+		$data['header'] = 'E-elearning - Jawaban Siswa / Kelas';
+		$data['kelas'] = $this->Ujian_model->kelas($_SESSION['id_pengajar'])->row(1);
+		$data['siswa'] = $this->Jawaban_siswa_model->tampil_siswa_jawaban_perkelas($data['kelas']->kelas_id,$_SESSION['id_pengajar'])->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('pengajar/jawaban_siswa',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function cek_jawaban_siswa()
+	{
+		$uri3 = $this->uri->segment(3);
+		$uri4 = $this->uri->segment(4);
+		$data['header'] = 'E-elearning - Jawaban Siswa / Kelas';
+		$data['siswa'] = $this->Siswa_model->cek_siswa($uri4)->row(1);
+		$data['nilai_pilganda'] = $this->Jawaban_siswa_model->cek_jawaban_siswa_pilganda($uri4,$uri3)->result();
+		$data['nilai_essay'] = $this->Jawaban_siswa_model->cek_jawaban_siswa_essay($uri4,$uri3)->result();
+		$data['hitung_essay'] = $this->Jawaban_siswa_model->tampil_nilai_essay_persiswa($uri4,$uri3)->row(1);
+		$this->load->view('template/header',$data);
+		$this->load->view('pengajar/cek_jawaban_siswa',$data);
+		$this->load->view('template/footer');
+		// var_dump($data['nilai_pilganda']);
+		// var_dump($data['nilai_essay']);
+	}
+
+	public function nambah_nilai_essay()
+	{
+		$siswa_id = $_POST['siswa_id'];
+		$mapel_kelas_id = $_POST['mapel_kelas_id'];
+		$topik_tugas = $this->db->get_where('topik_tugas',['mapel_kelas_id' => $mapel_kelas_id])->row();
+		$hitung_nilai_essay = $this->db->get_where('nilai_essay',['topik_tugas_id' => $topik_tugas->id ]);
+		$tampil_id = $hitung_nilai_essay->row_array(1);
+		if ($hitung_nilai_essay->num_rows() == 1) {
+			$data = [
+				'nilai' => $_POST['nilai'],
+			];
+			$this->Jawaban_siswa_model->update_siswa_essay($tampil_id['id'],$data);
+			echo "<script>alert('Nilai Essay telah diupdate');window.location.href='".site_url('pengajar/cek_jawaban_siswa/'.$mapel_kelas_id.'/'.$siswa_id)."';</script>";			
+		} else {
+				$data = [
+				'siswa_id' => $siswa_id,
+				'nilai' => $_POST['nilai'],
+				'topik_tugas_id' => $topik_tugas->id
+			];
+
+			$this->Jawaban_siswa_model->nambah_siswa_essay($data);
+			echo "<script>alert('Nilai Essay telah disimpan');window.location.href='".site_url('pengajar/cek_jawaban_siswa/'.$mapel_kelas_id.'/'.$siswa_id)."';</script>";
 		}
 	}
 

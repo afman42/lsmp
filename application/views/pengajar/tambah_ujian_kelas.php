@@ -19,6 +19,7 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <form action="<?= site_url('pengajar/insert_tugas_siswa/'.$kelas->id);?>" method="post" class="p-3">
+                      <input type="hidden" name="mapel_kelas_id" value="<?= $kelas->mapel_kelas_id?>">
                       <div class="form-group">
                         <label>Nama Tugas</label>
                         <input type="text" name="judul" class="form-control" placeholder="Masukan Judul" required>

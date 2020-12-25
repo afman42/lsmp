@@ -1,10 +1,10 @@
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Siswa - Password tetap: siswa123</h1>
+            <h1 class="h3 mb-0 text-gray-800"><?= $kelas->kelas_nama; ?> - Mapel <?= $kelas->mapel_nama; ?></h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Siswa</li>
+              <li class="breadcrumb-item active" aria-current="page">Kelas</li>
             </ol>
           </div>
 
@@ -14,16 +14,15 @@
             <div class="col-lg-12">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Akun Siswa <a href="<?= site_url('admin/tambah_siswa'); ?>" class="btn btn-sm btn-primary">Tambah</a></h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Jawaban Siswa</h6>
                 </div>
-                <?php if(isset($_SESSION['success'])) alert($_SESSION['success'],'success');?>
                 <div class="table-responsive p-3">
                   <table class="table align-items-center table-flush" id="dataTable">
                     <thead class="thead-light">
                       <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>Foto</th>
+                        <th>Siswa</th>
+                        <th>Jenis Kelamin</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -34,9 +33,16 @@
                       ?>
                       <tr>
                         <td><?= $no++; ?></td>
-                        <td><?= $k->nama; ?></td>
-                        <td><img src="<?= base_url().$k->foto; ?>" height="50" width="50"></td>
-                        <td><a href="<?= site_url('admin/edit_siswa/'.$k->id);?>" class="btn btn-sm btn-primary">Edit</a> <a href="<?= site_url('admin/hapus_siswa/'.$k->id);?>" class="btn btn-sm btn-danger">Hapus</a></td>
+                        <td><?= $k->siswa_nama; ?></td>
+                        <td>
+                        	<?php 
+                        	if($k->jk == 1) {
+                        		echo "Laki - Laki";
+                        	}else{
+                        		echo "Perempuan";
+                        	}?>
+                        </td>
+                        <td><a href="<?= site_url('pengajar/cek_jawaban_siswa/'.$k->mapel_kelas_id.'/'.$k->siswa_id);?>" class="btn btn-sm btn-primary">Cek</a></td>
                       </tr>
                       <?php } ?>
                     </tbody>

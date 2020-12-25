@@ -37,11 +37,10 @@
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <?php
-                $admin= $this->db->get_where('user',['level' => $this->session->userdata('level')])->row();
                 if($this->session->userdata('level') == 2 || $this->session->userdata('level') == 1){
-                  $pengajar = $this->db->get_where('pengajar',['id' => $admin->is_pengajar ])->row(); 
+                  $pengajar = $this->db->get_where('pengajar',['id' => $this->session->userdata('id_pengajar') ])->row(); 
                 }else{
-                  $pengajar = $this->db->get_where('siswa',['id' => $admin->is_siswa ])->row(); 
+                  $pengajar = $this->db->get_where('siswa',['id' => $this->session->userdata('id_siswa') ])->row();
                 }
                 if($pengajar->foto != null){
                 ?>

@@ -583,7 +583,6 @@ class Admin extends CI_Controller {
 		$data['header'] = 'E-elearning - Ubah Profil Admin';
 		$data['admin'] = $this->db->get_where('user',['level' => $this->session->userdata('level')])->row();
 		$data['pengajar'] = $this->db->get_where('pengajar',['id' => $data['admin']->is_pengajar ])->row();
-		$data['mapel'] = $this->Mapel_model->mapel()->result();
 		$this->load->view('template/header',$data);
 		$this->load->view('admin/ubah_profil',$data);
 		$this->load->view('template/footer');
@@ -606,7 +605,6 @@ class Admin extends CI_Controller {
 					'tempat_lahir' => $post['tempat_lahir'],
 					'tgl_lahir' => $post['tgl_lahir'],
 					'foto' => 'uploads/'.$featured_image,
-					'mapel_id' => $post['mapel_id'],
 					'jk' => $post['jk'],
 					'alamat' => $post['alamat'],
 				];
@@ -623,7 +621,6 @@ class Admin extends CI_Controller {
 				'nama' => $post['nama'],
 				'tempat_lahir' => $post['tempat_lahir'],
 				'tgl_lahir' => $post['tgl_lahir'],
-				'mapel_id' => $post['mapel_id'],
 				'jk' => $post['jk'],
 				'alamat' => $post['alamat'],
 			];

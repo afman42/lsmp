@@ -15,7 +15,7 @@
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">
-                    <a href="<?= site_url('pengajar/tambah_tugas_kelas/'.$kelas->id); ?>" class="btn btn-sm btn-primary">Tambah Tugas</a>
+                    <a href="<?= site_url('pengajar/tambah_tugas_kelas/'); ?>" class="btn btn-sm btn-primary">Tambah Tugas</a>
                   </h6>
                 </div>
                 <?php if(isset($_SESSION['success'])) alert($_SESSION['success'],'success');?>
@@ -27,6 +27,7 @@
                         <th>Nama Ujian</th>
                         <th>Tanggal dibuat</th>
                         <th>Tugas Pilganda / Essay</th>
+                        <th>Jawaban</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -41,6 +42,9 @@
                         <td><?= $k->tgl_dibuat; ?></td>
                         <td>
                           <a href="<?= site_url('pengajar/soal_pilganda/'.$k->id);?>" class="btn btn-sm btn-primary">Soal Pilganda</a> <a href="<?= site_url('pengajar/soal_essay/'.$k->id);?>" class="btn btn-sm btn-primary">Soal Essay</a>
+                        </td>
+                        <td>
+                          <a href="<?= site_url('pengajar/jawaban_siswa/'.$k->id);?>" class="btn btn-sm btn-success">Cek</a>
                         </td>
                         <td><a href="<?= site_url('pengajar/edit_tugas_kelas/'.$k->id);?>" class="btn btn-sm btn-danger">Edit</a> <a href="<?= site_url('pengajar/hapus_tugas_kelas/'.$k->id);?>" class="btn btn-sm btn-warning">Hapus</a></td>
                       </tr>

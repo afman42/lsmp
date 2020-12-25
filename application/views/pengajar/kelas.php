@@ -36,7 +36,7 @@
                         <td><?= $no++; ?></td>
                         <td><?= $k->kelas_nama; ?></td>
                         <td><?= $k->mapel_nama; ?></td>
-                        <td><a href="<?= site_url('pengajar/tugas_kelas/'.$k->id);?>" class="btn btn-sm btn-primary">Detail</a></td>
+                        <td><a href="<?= site_url('pengajar/tugas_kelas/'.$k->mapel_idd);?>" class="btn btn-sm btn-primary">Detail</a></td>
                       </tr>
                       <?php } ?>
                     </tbody>

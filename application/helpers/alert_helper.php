@@ -34,10 +34,10 @@ function ubah_date_time($timestamp){
 
 function pilihan_jawaban($selected = NULL){
     echo "<option value=''> -- Pilihan Jawaban -- </option>";
-    echo "<option value='a' "; if (isset($selected) && $selected == 'a') { echo 'selected'; }; echo ">A</option>";
-    echo "<option value='b' "; if (isset($selected) && $selected == 'b') { echo 'selected'; }; echo ">B</option>";    
-    echo "<option value='c' "; if (isset($selected) && $selected == 'c') { echo 'selected'; }; echo ">C</option>";    
-    echo "<option value='d' "; if (isset($selected) && $selected == 'd') { echo 'selected'; }; echo ">D</option>";
+    echo "<option value='A' "; if (isset($selected) && $selected == 'A') { echo 'selected'; }; echo ">A</option>";
+    echo "<option value='B' "; if (isset($selected) && $selected == 'B') { echo 'selected'; }; echo ">B</option>";    
+    echo "<option value='C' "; if (isset($selected) && $selected == 'C') { echo 'selected'; }; echo ">C</option>";    
+    echo "<option value='D' "; if (isset($selected) && $selected == 'D') { echo 'selected'; }; echo ">D</option>";
 }
 
 function first_kata_tinymce($str, $value){

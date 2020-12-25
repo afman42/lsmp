@@ -161,6 +161,7 @@ function mulai(){
         }
         habis = 1;
         document.getElementById("formulir").submit();
+        
     }
 }
 function selesai(){    
@@ -169,6 +170,7 @@ function selesai(){
         }
         habis = 1;
     document.getElementById("formulir").submit();
+    
 }
 function getCookie(c_name){
     if (document.cookie.length>0){
@@ -216,13 +218,13 @@ document.getElementById("tombol").innerHTML= "<input type='button' class='btn bt
         <div class="logo2 clear">
             <img src="<?= base_url('assets/pendidikan.png'); ?>" alt="" style="margin-top:10px;margin-left:60;" width="150" height="150" />
         </div>
-                    <div class="waktu">
-          <ul><li><a>Sisa Waktu Anda</a>
-              <ul>
-                  <div id=divwaktu></div>
-              </ul>
+        <div class="waktu">
+          <ul>
+            <li><a>Sisa Waktu Anda</a>
+                  <div id='divwaktu' style="background-color: black;"></div>
             </li>
-                  </ul></div>
+          </ul>
+        </div>
 </div>
 
 
@@ -254,12 +256,13 @@ $user = $this->db->get_where('user',['level' => $this->session->userdata('level'
 
 $cek_siswa = $this->db->query("SELECT * FROM siswa_mengerjakan WHERE topik_tugas_id='$_POST[id]' AND siswa_id='$user->is_siswa'");
 $info_siswa = $cek_siswa->row_array();
-if ($info_siswa['hits']<= 0){
-    $hits = $info_siswa + 1;
+if ($info_siswa <= 0){
+    $hits = 1;
     $this->db->query("INSERT INTO siswa_mengerjakan (topik_tugas_id,siswa_id,hits)
                                         VALUES ('$_POST[id]','$user->is_siswa','$hits')");
 }
-elseif ($info_siswa['hits'] > 0){
+elseif ($info_siswa > 0){
+    echo "<script>alert('Ujian Telah Dilakukan');window.location.href='".site_url('siswa/tugas')."'</script>";
 }
 
 $soal = $this->db->query("SELECT * FROM quiz_pilganda where topik_tugas_id='$_POST[id]' ORDER BY rand()");
@@ -274,14 +277,14 @@ $no = 1;
 // while($s = mysqli_fetch_array($soal)){
 foreach ($soal->result_array() as $s) {
     if ($s['gambar']!=''){
-    echo "<tr><td rowspan=6><h4>$no.</h4></td><td><h4>".$s['pertanyaan']."</h4></td></tr>";
+    echo "<tr><td rowspan=6><h6>$no.</h6></td><td><h6>".$s['pertanyaan']."</h6></td></tr>";
     echo "<tr><td><img src='".base_url().$s['gambar']."' height='300' width='300'></td></tr>";    
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='A'>A. ".$s['pil_a']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='B'>B. ".$s['pil_b']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='C'>C. ".$s['pil_c']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='D'>D. ".$s['pil_d']."</td></tr>";
     }else{
-        echo "<tr><td rowspan=5><h4>$no.</h4></td><td><h4>".$s['pertanyaan']."</h4></td></tr>";        
+        echo "<tr><td rowspan=5><h6>$no.</h6></td><td><h6>".$s['pertanyaan']."</h6></td></tr>";        
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='A'>A. ".$s['pil_a']."</td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='B'>B. ".$s['pil_b']."</td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='C'>C. ".$s['pil_c']."</td></tr>";
@@ -296,12 +299,12 @@ $no2=1;
 // while($e=  mysqli_fetch_array($soal_esay)){
 foreach ($soal_esay->result_array() as $e) {
     if (!empty($e['gambar'])){
-    echo "<tr><td rowspan=4><h4>$no2.</h4></td><td><h4>".$e['pertanyaan']."</h4></td></tr>";
+    echo "<tr><td rowspan=4><h6>$no2.</h6></td><td><h6>".$e['pertanyaan']."</h6></td></tr>";
     echo "<tr><td><img src='".base_url().$e['gambar']."' height='300' width='300'></td></tr>";
     echo "<tr><td>Jawaban : </td></tr>";
     echo "<tr><td><textarea name=soal_esay[".$e['id']."] cols=95 rows=5></textarea></td></tr>";
     }else{
-        echo "<tr><td rowspan=3><h4>$no2.</h4></td><td><h4>".$e['pertanyaan']."</h4></td></tr>";
+        echo "<tr><td rowspan=3><h6>$no2.</h6></td><td><h6>".$e['pertanyaan']."</h6></td></tr>";
         echo "<tr><td>Jawaban : </td></tr>";
         echo "<tr><td><textarea name=soal_esay[".$e['id']."] cols=95 rows=5></textarea></td></tr>";
     }
@@ -320,14 +323,14 @@ $no = 1;
 // while($s = mysqli_fetch_array($soal)){
 foreach ($soal->result_array() as $s) {
     if ($s['gambar']!=''){
-    echo "<tr><td rowspan=6><h4>$no.</ h4></td><tdh4>".$s['pertanyaan']."<h4></td></tr>";
+    echo "<tr><td rowspan=6><h6>$no.</ h6></td><tdh6>".$s['pertanyaan']."<h6></td></tr>";
     echo "<tr><td><img src='".base_url().$e['gambar']."' height='300' width='300'></td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='A'>A. ".$s['pil_a']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='B'>B. ".$s['pil_b']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='C'>C. ".$s['pil_c']."</td></tr>";
     echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='D'>D. ".$s['pil_d']."</td></tr>";
     }else{
-        echo "<tr><td rowspan=5><h4>$no.</ h4></td><tdh4>".$s['pertanyaan']."<h4></td></tr>";
+        echo "<tr><td rowspan=5><h6>$no.</ h6></td><tdh6>".$s['pertanyaan']."<h6></td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='A'>A. ".$s['pil_a']."</td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='B'>B. ".$s['pil_b']."</td></tr>";
         echo "<tr><td><input type=radio name=soal_pilganda[".$s['id']."] value='C'>C. ".$s['pil_c']."</td></tr>";
@@ -365,7 +368,7 @@ elseif (empty($pilganda) AND empty($esay)){
 }
 ?>
 <br><p class='garisbawah'></p>
-<h4>Apakah anda sudah yakin dengan jawaban anda dan ingin menyimpannya?  <button type=button class='btn btn-warning' onclick="tombol()">Ya</button></h4>
+<h6>Apakah anda sudah yakin dengan jawaban anda dan ingin menyimpannya?  <button type=button class='btn btn-warning' onclick="tombol()">Ya</button></h6>
 <h3 id="tombol"></h3>
 </form>
 </td>

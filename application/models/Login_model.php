@@ -12,4 +12,9 @@ class Login_model extends CI_Model {
     {
         return $this->db->get_where('pengajar',['id' => $id]);
     }
+
+    public function cek_siswa($id)
+    {
+        return $this->db->get_where('siswa',['id' => $id]);
+    }
 }

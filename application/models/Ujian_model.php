@@ -5,7 +5,7 @@ class Ujian_model extends CI_Model {
 
     public function kelas($pengajar_id)
     {
-        $this->db->select('*,kelas.nama as kelas_nama, mapel.nama as mapel_nama');
+        $this->db->select('*,kelas.nama as kelas_nama, mapel.nama as mapel_nama, mapel_kelas.id as mapel_kelas_id, mapel_kelas.mapel_id as mapel_idd');
         $this->db->from('mapel_kelas');
         $this->db->join('kelas', 'kelas.id = mapel_kelas.kelas_id');
         $this->db->join('mapel', 'mapel.id = mapel_kelas.mapel_id');
@@ -34,11 +34,13 @@ class Ujian_model extends CI_Model {
         return $this->db->get();
     }
 
-    public function ujian($pengajar)
+    public function ujian($pengajar,$mapel_id)
     {
         $this->db->select('*');
         $this->db->from('topik_tugas');
+        $this->db->join('mapel_kelas', 'topik_tugas.mapel_kelas_id = mapel_kelas.kelas_id');
         $this->db->where('topik_tugas.pengajar_id',$pengajar);
+        $this->db->where('mapel_kelas.mapel_id',$mapel_id);
         return $this->db->get();
     }
 

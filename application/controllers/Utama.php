@@ -45,23 +45,26 @@ class Utama extends CI_Controller {
                     'email'   => $row->email,
                     'level'   => $row->level,
                     'login'   => TRUE,
-                  );
+                    'id_pengajar' => $row->is_pengajar
+                );
             }
             else if($row->level == 2){
                 $pengajar = $this->model->cek_pengajar($row->is_pengajar)->row();
                 $data = array(
                     'email'  => $row->email,
                     'level'  => $row->level,
-                    'mapel_id' => $pengajar->mapel_id,
                     'login'   => TRUE,
                     'id_pengajar' => $pengajar->id,
                 );
             }
             else{
+                $siswa = $this->model->cek_siswa($row->is_siswa)->row();
                 $data = array(
                     'email'  => $row->email,
                     'login'   => TRUE,
                     'level'  => $row->level,
+                    'id_siswa' => $siswa->id,
+                    'is_siswa' => $row->is_siswa,
                 );
             }
             
