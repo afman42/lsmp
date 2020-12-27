@@ -8,7 +8,7 @@ class Jawaban_siswa_model extends CI_Model {
 		parent::__construct();
 	}
 
-	public function tampil_siswa_jawaban_perkelas($kelas_id,$pengajar_id)
+	public function tampil_siswa_jawaban_perkelas($kelas_id,$mapel_id,$pengajar_id)
 	{
 		$this->db->select('*,siswa.nama as siswa_nama, mapel_kelas.id as mapel_kelas_id,siswa.id as siswa_id');
         $this->db->from('mapel_kelas');
@@ -16,6 +16,7 @@ class Jawaban_siswa_model extends CI_Model {
         $this->db->join('siswa', 'siswa.id = kelas_siswa.siswa_id');
         $this->db->where('mapel_kelas.pengajar_id',$pengajar_id);
         $this->db->where('mapel_kelas.kelas_id',$kelas_id);
+        $this->db->where('mapel_kelas.mapel_id',$mapel_id);
         return $this->db->get();
 	}
 

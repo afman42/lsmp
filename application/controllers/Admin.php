@@ -39,9 +39,8 @@ class Admin extends CI_Controller {
 	public function tambah_pengajar()
 	{
 		$data['header'] = 'E-elearning - Tambah Pengajar';
-		$data['mapel'] = $this->Mapel_model->mapel()->result();
 		$this->load->view('template/header',$data);
-		$this->load->view('admin/tambah_pengajar',$data);
+		$this->load->view('admin/tambah_pengajar');
 		$this->load->view('template/footer');
 	}
 
@@ -50,7 +49,6 @@ class Admin extends CI_Controller {
 		$data['header'] = 'E-elearning - Edit Pengajar';
 		$data['pengajar'] = $this->db->get_where('pengajar',['id' => $id])->row();
 		$data['user'] = $this->db->get_where('user',['is_pengajar' => $id])->row();
-		$data['mapel'] = $this->Mapel_model->mapel()->result();
 		$this->load->view('template/header',$data);
 		$this->load->view('admin/edit_pengajar');
 		$this->load->view('template/footer');
@@ -389,6 +387,7 @@ class Admin extends CI_Controller {
 		$data['mapel_ajar'] = $this->db->get_where('mapel_kelas',['id' => $id])->row();
 		$data['mapel'] = $this->Mapel_model->mapel()->result();
 		$data['kelas'] = $this->Kelas_model->kelas()->result();
+		$data['pengajar'] = $this->Kelas_model->pengajar()->result();
 		$this->load->view('template/header',$data);
 		$this->load->view('admin/edit_mapel_ajar',$data);
 		$this->load->view('template/footer');
@@ -581,8 +580,8 @@ class Admin extends CI_Controller {
 	public function ubah_profil()
 	{
 		$data['header'] = 'E-elearning - Ubah Profil Admin';
-		$data['admin'] = $this->db->get_where('user',['level' => $this->session->userdata('level')])->row();
-		$data['pengajar'] = $this->db->get_where('pengajar',['id' => $data['admin']->is_pengajar ])->row();
+		$data['admin'] = $this->db->get_where('user',['is_pengajar' => $_SESSION['id_pengajar']])->row();
+		$data['pengajar'] = $this->db->get_where('pengajar',['id' => $_SESSION['id_pengajar'] ])->row();
 		$this->load->view('template/header',$data);
 		$this->load->view('admin/ubah_profil',$data);
 		$this->load->view('template/footer');

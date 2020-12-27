@@ -115,4 +115,18 @@ class Siswa_model extends CI_Model {
     {
         return $this->db->get_where('siswa',['id' => $id]);
     }
+
+    public function nilai_perkelas($mapel_id,$kelas_id,$id_pengajar)
+    {
+        $this->db->select('*');
+        $this->db->from('topik_tugas');
+        $this->db->join('mapel_kelas', 'mapel_kelas.id = topik_tugas.mapel_kelas_id');
+        $this->db->join('nilai', 'nilai.topik_tugas_id = topik_tugas.id');
+        $this->db->join('nilai_essay', 'nilai_essay.topik_tugas_id = topik_tugas.id');
+        $this->db->join('kelas_siswa','kelas_siswa.kelas_id = mapel_kelas.kelas_id');
+        $this->db->join('siswa', 'siswa.id = kelas_siswa.siswa_id');
+        $this->db->where('mapel_kelas.mapel_id',$mapel_id);
+        $this->db->where('topik_tugas.pengajar_id',$id_pengajar);
+        return $this->db->get();
+    }
 }

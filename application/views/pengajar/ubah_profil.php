@@ -24,7 +24,7 @@
                 ?>
                 <div class="row">
                   <div class="col-lg-6">
-                    <form action="<?= site_url('admin/update_ubah_profil/'.$admin->is_pengajar);?>" method="post" class="p-3" enctype="multipart/form-data">
+                    <form action="<?= site_url('pengajar/update_ubah_profil/'.$admin->is_pengajar);?>" method="post" class="p-3" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Email</label>
                         <input type="email" class="form-control" name="email" placeholder="Masukan Email" required value="<?= $admin->email; ?>">

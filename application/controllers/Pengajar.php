@@ -46,6 +46,7 @@ class Pengajar extends CI_Controller {
 		$this->load->view('template/header',$data);
 		$this->load->view('pengajar/kelas_siswa',$data);
 		$this->load->view('template/footer');
+		// var_dump($data['ujian']);
 	}
 
 	public function tambah_tugas_kelas()
@@ -69,12 +70,13 @@ class Pengajar extends CI_Controller {
 			'terbit' => $post['terbit'],
 		];
 		$save = $this->Ujian_model->tambah_tugas($data);
+		$mapel_kelas = $this->db->get_where('mapel_kelas',['id' => $post['mapel_kelas_id']])->row(1);
 		if ($save) {
 			$this->session->set_flashdata('success','Berhasil Tambah Tugas Siswa');
-			redirect(site_url('pengajar/tugas_kelas/'.$id));
+			redirect(site_url('pengajar/tugas_kelas/'.$mapel_kelas->mapel_id));
 		} else {
 			$this->session->set_flashdata('success','Gagal Tambah Tugas Siswa');
-			redirect(site_url('pengajar/tugas_kelas/'.$id));
+			redirect(site_url('pengajar/tugas_kelas/'.$mapel_kelas->mapel_id));
 		}
 	}
 
@@ -125,7 +127,7 @@ class Pengajar extends CI_Controller {
 	{
 		$data['header'] = 'E-elearning - Jawaban Siswa / Kelas';
 		$data['kelas'] = $this->Ujian_model->kelas($_SESSION['id_pengajar'])->row(1);
-		$data['siswa'] = $this->Jawaban_siswa_model->tampil_siswa_jawaban_perkelas($data['kelas']->kelas_id,$_SESSION['id_pengajar'])->result();
+		$data['siswa'] = $this->Jawaban_siswa_model->tampil_siswa_jawaban_perkelas($data['kelas']->kelas_id,$data['kelas']->mapel_idd,$_SESSION['id_pengajar'])->result();
 		$this->load->view('template/header',$data);
 		$this->load->view('pengajar/jawaban_siswa',$data);
 		$this->load->view('template/footer');
@@ -468,15 +470,47 @@ class Pengajar extends CI_Controller {
 		}
 	}
 
+	//laporan perkelas
+	public function laporan_nilai()
+	{
+		$data['header'] = 'E-elearning - Laporan Nilai';
+		$data['kelas'] = $this->Ujian_model->kelas($_SESSION['id_pengajar'])->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('pengajar/laporan_nilai',$data);
+		$this->load->view('template/footer');	
+	}
+
+	public function laporan_perkelas($id)
+	{
+		$data['header'] = 'E-elearning - Laporan Nilai Perkelas';
+		$data['kelas'] = $this->Ujian_model->kelas($_SESSION['id_pengajar'])->row(1);
+		$data['ujian'] = $this->Ujian_model->ujian($_SESSION['id_pengajar'],$id)->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('pengajar/laporan_nilai_perkelas',$data);
+		$this->load->view('template/footer');
+	}
+
+	public function cek_kelas()
+	{
+		$uri3 = $this->uri->segment(3);
+		$uri4 = $this->uri->segment(4);
+		$data['header'] = 'E-elearning - Laporan Nilai Perkelas Siswa';
+		$data['kelas'] = $this->Ujian_model->kelas($_SESSION['id_pengajar'])->row(1);
+		$data['siswa'] = $this->Siswa_model->nilai_perkelas($uri3,$uri4,$_SESSION['id_pengajar'])->result();
+		$this->load->view('template/header',$data);
+		$this->load->view('pengajar/laporan_nilai_siswa',$data);
+		$this->load->view('template/footer');
+	}
+
 	//Ubah Profil
 	public function ubah_profil()
 	{
 		$data['header'] = 'E-elearning - Ubah Profil Pengajar';
-		$data['admin'] = $this->db->get_where('user',['level' => $this->session->userdata('level')])->row();
-		$data['pengajar'] = $this->db->get_where('pengajar',['id' => $data['admin']->is_pengajar ])->row();
+		$data['admin'] = $this->db->get_where('user',['is_pengajar' => $_SESSION['id_pengajar']])->row();
+		$data['pengajar'] = $this->db->get_where('pengajar',['id' => $_SESSION['id_pengajar'] ])->row();
 		$data['mapel'] = $this->Mapel_model->mapel()->result();
 		$this->load->view('template/header',$data);
-		$this->load->view('admin/ubah_profil',$data);
+		$this->load->view('pengajar/ubah_profil',$data);
 		$this->load->view('template/footer');
 	}
 
@@ -497,7 +531,6 @@ class Pengajar extends CI_Controller {
 					'tempat_lahir' => $post['tempat_lahir'],
 					'tgl_lahir' => $post['tgl_lahir'],
 					'foto' => 'uploads/'.$featured_image,
-					'mapel_id' => $post['mapel_id'],
 					'jk' => $post['jk'],
 					'alamat' => $post['alamat'],
 				];
@@ -514,7 +547,6 @@ class Pengajar extends CI_Controller {
 				'nama' => $post['nama'],
 				'tempat_lahir' => $post['tempat_lahir'],
 				'tgl_lahir' => $post['tgl_lahir'],
-				'mapel_id' => $post['mapel_id'],
 				'jk' => $post['jk'],
 				'alamat' => $post['alamat'],
 			];

@@ -49,7 +49,7 @@
                         <select name="pengajar_id" class="form-control" required>
                         <option value="">-- Pilihan Pengajar --</option>
                           <?php foreach ($pengajar as $k) {?>
-                            <option value="<?= $k->id; ?>" <?php if($k->pengajar_id == $mapel_ajar->pengajar_id){ echo 'selected';} ?>><?= $k->nama;?></option>
+                            <option value="<?= $k->id; ?>" <?php if($k->id == $mapel_ajar->pengajar_id){ echo 'selected';} ?>><?= $k->nama;?></option>
                           <?php } ?>
                         </select>
                       </div>

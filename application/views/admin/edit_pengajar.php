@@ -29,7 +29,7 @@
                         <input type="text" class="form-control" name="nama" placeholder="Masukan Nama" required value="<?= $pengajar->nama; ?>">
                       </div>
                       <div class="form-group">
-                        <label>Jenis Kelamin</label>
+                        <label>Jenis Kelamin</label><br>
                         <input type="radio" name="jk" value="1" <?php if($pengajar->jk == 1) { echo 'checked';} ?>>Laki - Laki
                         <input type="radio" name="jk" value="0" <?php if($pengajar->jk == 0) { echo 'checked';} ?>>Perempuan
                       </div>

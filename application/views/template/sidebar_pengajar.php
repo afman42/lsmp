@@ -17,14 +17,21 @@
         Featuress
       </div> -->
       
-      <li class="nav-item <?php active_link('ujian') ?>">
+      <li class="nav-item <?php active_link('tugas') ?>">
         <a class="nav-link" href="<?= site_url('pengajar/tugas'); ?>">
           <i class="fas fa-fw fa-stream"></i>
           <span>Tugas</span>
         </a>
       </li>
+
+      <li class="nav-item <?php active_link('ujian') ?>">
+        <a class="nav-link" href="<?= site_url('pengajar/laporan_nilai'); ?>">
+          <i class="fas fa-fw fa-caret-square-down"></i>
+          <span>Laporan Nilai</span>
+        </a>
+      </li>
       
-      <li class="nav-item">
+      <li class="nav-item <?php active_link('ubah_profil') ?>">
         <a class="nav-link" href="<?= site_url('pengajar/ubah_profil'); ?>">
           <i class="fas fa-fw fa-cog"></i>
           <span>Ubah Profil</span>
